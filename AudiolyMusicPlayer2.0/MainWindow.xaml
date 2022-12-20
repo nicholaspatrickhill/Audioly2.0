@@ -1,0 +1,29 @@
+﻿<Window x:Class="AudiolyMusicPlayer2._0.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:AudiolyMusicPlayer2._0"
+        mc:Ignorable="d"
+        Height="550" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}">
+    <Grid Background="{x:Null}">
+        <materialDesign:Card Margin="10" UniformCornerRadius="20" ClipContent="True" Background="{x:Null}">
+            <StackPanel>
+                <StackPanel.Background>
+                    <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.3,1">
+                        <GradientStop Color="#121212" Offset="1"/>
+                        <GradientStop Color="#292929" Offset="0"/>
+                    </LinearGradientBrush>
+                </StackPanel.Background>
+                <Grid Height="70">
+                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Left" Margin="20 0" ToolTip="Open File" x:Name="btnFile">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="Folder" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </materialDesign:Card>
+    </Grid>
+</Window>
