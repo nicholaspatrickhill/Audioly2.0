@@ -110,6 +110,7 @@ namespace AudiolyMusicPlayer2._0
                     string? trackPath = playList.Items[selectedItemIndex].ToString();
                     string? trackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(trackPath);
                     mediaPlayer.Open(new Uri(trackPath!));
+                    lblSongname.Visibility = Visibility.Visible;
                     lblSongname.Text = trackPathWithoutExt;
                     mediaPlayer.Play();
                 }
