@@ -25,6 +25,7 @@
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"></Setter>
                     </Style>
+                  
                 </Style.Resources>
             </Style>
         </ResourceDictionary>

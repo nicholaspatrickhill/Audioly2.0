@@ -26,6 +26,8 @@ namespace AudiolyMusicPlayer2._0
     {
         private MediaPlayer mediaPlayer = new MediaPlayer();
 
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -43,6 +45,8 @@ namespace AudiolyMusicPlayer2._0
             Application.Current.Shutdown();
         }
 
+        string[] files, path;
+
         private void BtnOpen_Click(object sender, RoutedEventArgs e)
         {
             
@@ -54,9 +58,15 @@ namespace AudiolyMusicPlayer2._0
 
             if (result == true)
             {
-                playList.Items.Add(openFileDialog.FileName);
                 lblSongname.Text = System.IO.Path.GetFileName(openFileDialog.FileName);
                 mediaPlayer.Open(new Uri(openFileDialog.FileName));
+
+                files = openFileDialog.FileNames;
+                path = openFileDialog.FileNames;
+                for (int i = 0; i < files.Length; i++)
+                {
+                    playList.Items.Add(files[i]);
+                }
             }
         }
 
@@ -92,7 +102,8 @@ namespace AudiolyMusicPlayer2._0
         }
 
         private void PlayList_SelectedIndexChanged(object sender, EventArgs e)
-        { 
+        {
+            
             mediaPlayer.Play();
         }
 

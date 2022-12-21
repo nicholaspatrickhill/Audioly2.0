@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:AudiolyMusicPlayer2._0"
         mc:Ignorable="d"
-        Height="650" Width="650" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}">
+        Height="775" Width="775" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}">
     <Grid Background="{x:Null}">
         <materialDesign:Card Margin="10" UniformCornerRadius="20" ClipContent="True" Background="{x:Null}" MouseDown="Card_MouseDown">
             <StackPanel>
@@ -30,17 +30,24 @@
                     </Button>
                 </Grid>
 
-                <ListBox Style="{StaticResource RoundedListBoxStyle}" Margin ="30" Height="200" x:Name="playList" Background="Gray" FontFamily="Arial" Foreground="White" />
- 
+                <ListBox Style="{StaticResource RoundedListBoxStyle}" Margin ="30" Height="260" x:Name="playList" FontFamily="Arial" Foreground="Black" >
+                    <ListBox.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White"/>
+                            <GradientStop Color="LightGray" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ListBox.Background>
+                </ListBox>
+
                 <!--<Image Margin="10" Height="200" x:Name="Musicimg" Stretch="Uniform" Source="Images/MusicIcon.png" />-->
-                
+
                 <TextBlock Margin="10" FontSize="19" Text="Song name" Foreground="White" TextAlignment="Center" FontWeight="SemiBold" x:Name="lblSongname"/>
-                
+
                 <Grid Margin="0 30 0 0">
                     <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Left" x:Name="lblCurrenttime"/>
                     <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Right" x:Name="lblMusiclength"/>
                 </Grid>
-                
+
                 <Slider Value="0" Minimum="1" Maximum="50" Margin="20 10" Foreground="DeepPink" x:Name="TimerSlider" />
 
                 <WrapPanel HorizontalAlignment="Center" Margin="0 30">
@@ -76,12 +83,12 @@
                     </Button>
                 </WrapPanel>
 
-                <Grid> 
-                <materialDesign:PackIcon Kind="VolumeHigh" Width="20" Height="20" Foreground="Gray" Margin="150 25"/>
-                <Slider Value="0" Minimum="1" Maximum="50" Margin="175 25" Foreground="Gray" x:Name="VolumeSlider" />
+                <Grid>
+                    <materialDesign:PackIcon Kind="VolumeHigh" Width="20" Height="20" Foreground="Gray" Margin="150 25"/>
+                    <Slider Value="0" Minimum="1" Maximum="50" Margin="175 25" Foreground="Gray" x:Name="VolumeSlider" />
                 </Grid>
-                
-                <TextBlock Margin="20 0" FontSize="24" Text="Audioly" Foreground="DeepPink" TextAlignment="Center" FontFamily="Magneto" FontWeight="ExtraLight" x:Name="lblPlayername"/>
+
+                <TextBlock Margin="20 0" FontSize="36" Text="Audioly" Foreground="DeepPink" TextAlignment="Center" FontFamily="Magneto" FontWeight="ExtraLight" x:Name="lblPlayername"/>
             </StackPanel>
         </materialDesign:Card>
     </Grid>
