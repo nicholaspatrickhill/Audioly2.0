@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace AudiolyMusicPlayer2._0
 {
     /// <summary>
@@ -26,13 +28,9 @@ namespace AudiolyMusicPlayer2._0
     {
         private MediaPlayer mediaPlayer = new MediaPlayer();
 
-        OpenFileDialog openFileDialog = new OpenFileDialog();
-
         public MainWindow()
         {
             InitializeComponent();
-            //string ImgPath = $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.ToString()}\\Images\\MusicIcon.png";
-            //Musicimg.Source = new BitmapImage(new Uri(ImgPath));
         }
 
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
@@ -45,33 +43,38 @@ namespace AudiolyMusicPlayer2._0
             Application.Current.Shutdown();
         }
 
-        string[] files, path;
-
+        OpenFileDialog openFileDialog = new OpenFileDialog();
         private void BtnOpen_Click(object sender, RoutedEventArgs e)
         {
             
-            OpenFileDialog openFileDialog= new OpenFileDialog();
             openFileDialog.Filter = "Audio files (*.wav, *.mp3, *.wma, *.ogg, *.flac) | *.wav; *.mp3; *.wma; *.ogg; *.flac";
             openFileDialog.Multiselect = true;
+
+            string[] files;
 
             Nullable<bool> result = openFileDialog.ShowDialog();
 
             if (result == true)
             {
-                lblSongname.Text = System.IO.Path.GetFileName(openFileDialog.FileName);
-                mediaPlayer.Open(new Uri(openFileDialog.FileName));
 
                 files = openFileDialog.FileNames;
-                path = openFileDialog.FileNames;
+
                 for (int i = 0; i < files.Length; i++)
                 {
                     playList.Items.Add(files[i]);
+
+                    //foreach (var item in playList.Items)
+                    //{
+                    //    lblSongname.Text = System.IO.Path.GetFileName(openFileDialog.FileName);
+                    //    mediaPlayer.Open(new Uri(openFileDialog.FileName));
+                    //}
                 }
             }
         }
 
         private void BtnPlay_Click(object sender, RoutedEventArgs e)
         {
+            //mediaPlayer.Open(new Uri(openFileDialog.FileName));
             mediaPlayer.Play();
         }
 
@@ -87,9 +90,10 @@ namespace AudiolyMusicPlayer2._0
 
         private void BtnPNext_Click(object sender, RoutedEventArgs e)
         {
-            if (playList.SelectedIndex<playList.Items.Count-1)
+            if (playList.SelectedIndex < playList.Items.Count-1)
             {
                 playList.SelectedIndex = playList.SelectedIndex + 1;
+                
             }
         }
 
@@ -101,11 +105,20 @@ namespace AudiolyMusicPlayer2._0
             }
         }
 
-        private void PlayList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-            mediaPlayer.Play();
-        }
 
+        private void playList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int selectedItemIndex = -1;
+            if (playList.Items.Count > 0)
+            {
+                selectedItemIndex = playList.SelectedIndex;
+                if (selectedItemIndex > -1)
+                {
+                    string? trackPath = playList.Items[selectedItemIndex].ToString();
+                    mediaPlayer.Open(new Uri(trackPath));
+                    lblSongname.Text = trackPath;
+                }
+            }
+        }
     }
 }

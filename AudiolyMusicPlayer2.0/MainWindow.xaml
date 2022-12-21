@@ -30,7 +30,7 @@
                     </Button>
                 </Grid>
 
-                <ListBox Style="{StaticResource RoundedListBoxStyle}" Margin ="30" Height="260" x:Name="playList" FontFamily="Arial" Foreground="Black" >
+                <ListBox Style="{StaticResource RoundedListBoxStyle}" Margin ="30" Height="260" x:Name="playList" FontFamily="Arial" Foreground="Black" SelectionChanged="playList_SelectionChanged" >
                     <ListBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="White"/>
