@@ -29,8 +29,10 @@
                         </StackPanel>
                     </Button>
                 </Grid>
-                
-                <Image Margin="10" Height="200" x:Name="Musicimg" Stretch="Uniform" Source="Images/MusicIcon.png" />
+
+                <ListBox Style="{StaticResource RoundedListBoxStyle}" Margin ="30" Height="200" x:Name="playList" Background="Gray" FontFamily="Arial" Foreground="White" />
+ 
+                <!--<Image Margin="10" Height="200" x:Name="Musicimg" Stretch="Uniform" Source="Images/MusicIcon.png" />-->
                 
                 <TextBlock Margin="10" FontSize="19" Text="Song name" Foreground="White" TextAlignment="Center" FontWeight="SemiBold" x:Name="lblSongname"/>
                 
@@ -42,7 +44,7 @@
                 <Slider Value="0" Minimum="1" Maximum="50" Margin="20 10" Foreground="DeepPink" x:Name="TimerSlider" />
 
                 <WrapPanel HorizontalAlignment="Center" Margin="0 30">
-                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Play Rewind" x:Name="btnPRewind">
+                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Play Rewind" x:Name="btnPRewind" Click="BtnPRewind_Click">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="FastRewind" Width="20" Height="20" />
                         </StackPanel>
@@ -52,17 +54,17 @@
                             <materialDesign:PackIcon Kind="Play" Width="20" Height="20" />
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Play Next" x:Name="btnPNext">
+                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Play Next" x:Name="btnPNext" Click="BtnPNext_Click">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="FastForward" Width="20" Height="20" />
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Pause" x:Name="btnPause">
+                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Pause" x:Name="btnPause" Click="BtnPause_Click">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="Pause" Width="20" Height="20" />
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Stop" x:Name="btnStop">
+                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Stop" x:Name="btnStop" Click="BtnStop_Click">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="Stop" Width="20" Height="20" />
                         </StackPanel>

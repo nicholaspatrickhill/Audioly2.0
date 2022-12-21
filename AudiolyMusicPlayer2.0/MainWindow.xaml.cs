@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,11 +25,12 @@ namespace AudiolyMusicPlayer2._0
     public partial class MainWindow : Window
     {
         private MediaPlayer mediaPlayer = new MediaPlayer();
+
         public MainWindow()
         {
             InitializeComponent();
-            string ImgPath = $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.ToString()}\\Images\\MusicIcon.png";
-            Musicimg.Source = new BitmapImage(new Uri(ImgPath));
+            //string ImgPath = $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.ToString()}\\Images\\MusicIcon.png";
+            //Musicimg.Source = new BitmapImage(new Uri(ImgPath));
         }
 
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
@@ -43,14 +45,16 @@ namespace AudiolyMusicPlayer2._0
 
         private void BtnOpen_Click(object sender, RoutedEventArgs e)
         {
+            
             OpenFileDialog openFileDialog= new OpenFileDialog();
+            openFileDialog.Filter = "Audio files (*.wav, *.mp3, *.wma, *.ogg, *.flac) | *.wav; *.mp3; *.wma; *.ogg; *.flac";
             openFileDialog.Multiselect = true;
 
             Nullable<bool> result = openFileDialog.ShowDialog();
 
             if (result == true)
             {
-                //lblSongname.Text = openFileDialog.FileName;
+                playList.Items.Add(openFileDialog.FileName);
                 lblSongname.Text = System.IO.Path.GetFileName(openFileDialog.FileName);
                 mediaPlayer.Open(new Uri(openFileDialog.FileName));
             }
@@ -60,6 +64,37 @@ namespace AudiolyMusicPlayer2._0
         {
             mediaPlayer.Play();
         }
-        
+
+        private void BtnPause_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Pause();
+        }
+
+        private void BtnStop_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Stop();
+        }
+
+        private void BtnPNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (playList.SelectedIndex<playList.Items.Count-1)
+            {
+                playList.SelectedIndex = playList.SelectedIndex + 1;
+            }
+        }
+
+        private void BtnPRewind_Click(object sender, RoutedEventArgs e)
+        {
+            if (playList.SelectedIndex > 0)
+            {
+                playList.SelectedIndex = playList.SelectedIndex - 1;
+            }
+        }
+
+        private void PlayList_SelectedIndexChanged(object sender, EventArgs e)
+        { 
+            mediaPlayer.Play();
+        }
+
     }
 }
