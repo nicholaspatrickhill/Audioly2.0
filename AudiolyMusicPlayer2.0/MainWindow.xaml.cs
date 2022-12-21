@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,11 +23,17 @@ namespace AudiolyMusicPlayer2._0
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MediaPlayer mediaPlayer = new MediaPlayer();
         public MainWindow()
         {
             InitializeComponent();
             string ImgPath = $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.ToString()}\\Images\\MusicIcon.png";
             Musicimg.Source = new BitmapImage(new Uri(ImgPath));
+        }
+
+        private void Card_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
@@ -45,12 +52,14 @@ namespace AudiolyMusicPlayer2._0
             {
                 //lblSongname.Text = openFileDialog.FileName;
                 lblSongname.Text = System.IO.Path.GetFileName(openFileDialog.FileName);
+                mediaPlayer.Open(new Uri(openFileDialog.FileName));
             }
         }
 
-        private void Card_MouseDown(object sender, MouseButtonEventArgs e)
+        private void BtnPlay_Click(object sender, RoutedEventArgs e)
         {
-            DragMove();
+            mediaPlayer.Play();
         }
+        
     }
 }
