@@ -62,19 +62,12 @@ namespace AudiolyMusicPlayer2._0
                 for (int i = 0; i < files.Length; i++)
                 {
                     playList.Items.Add(files[i]);
-
-                    //foreach (var item in playList.Items)
-                    //{
-                    //    lblSongname.Text = System.IO.Path.GetFileName(openFileDialog.FileName);
-                    //    mediaPlayer.Open(new Uri(openFileDialog.FileName));
-                    //}
                 }
             }
         }
 
         private void BtnPlay_Click(object sender, RoutedEventArgs e)
         {
-            //mediaPlayer.Open(new Uri(openFileDialog.FileName));
             mediaPlayer.Play();
         }
 
@@ -93,7 +86,7 @@ namespace AudiolyMusicPlayer2._0
             if (playList.SelectedIndex < playList.Items.Count-1)
             {
                 playList.SelectedIndex = playList.SelectedIndex + 1;
-                
+                mediaPlayer.Play();
             }
         }
 
@@ -102,6 +95,7 @@ namespace AudiolyMusicPlayer2._0
             if (playList.SelectedIndex > 0)
             {
                 playList.SelectedIndex = playList.SelectedIndex - 1;
+                mediaPlayer.Play();
             }
         }
 
@@ -117,6 +111,7 @@ namespace AudiolyMusicPlayer2._0
                     string? trackPath = playList.Items[selectedItemIndex].ToString();
                     mediaPlayer.Open(new Uri(trackPath));
                     lblSongname.Text = trackPath;
+                    mediaPlayer.Play();
                 }
             }
         }
