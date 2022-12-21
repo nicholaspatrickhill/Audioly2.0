@@ -18,6 +18,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+// TODO
+// volume slider
+// progress bar
+// continuous playback
+// shuffle
+// move items around in listbox for true playlist building
 
 namespace AudiolyMusicPlayer2._0
 {
@@ -27,6 +33,7 @@ namespace AudiolyMusicPlayer2._0
     public partial class MainWindow : Window
     {
         private MediaPlayer mediaPlayer = new MediaPlayer();
+        bool trackPaused = false;
 
         public MainWindow()
         {
@@ -36,17 +43,12 @@ namespace AudiolyMusicPlayer2._0
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
-        }
+        } 
 
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        OpenFileDialog openFileDialog = new OpenFileDialog();
+        // File processing --> adds items to playlist
         private void BtnOpen_Click(object sender, RoutedEventArgs e)
         {
-            
+            OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Audio files (*.wav, *.mp3, *.wma, *.ogg, *.flac) | *.wav; *.mp3; *.wma; *.ogg; *.flac";
             openFileDialog.Multiselect = true;
 
@@ -56,7 +58,6 @@ namespace AudiolyMusicPlayer2._0
 
             if (result == true)
             {
-
                 files = openFileDialog.FileNames;
 
                 for (int i = 0; i < files.Length; i++)
@@ -66,40 +67,7 @@ namespace AudiolyMusicPlayer2._0
             }
         }
 
-        private void BtnPlay_Click(object sender, RoutedEventArgs e)
-        {
-            mediaPlayer.Play();
-        }
-
-        private void BtnPause_Click(object sender, RoutedEventArgs e)
-        {
-            mediaPlayer.Pause();
-        }
-
-        private void BtnStop_Click(object sender, RoutedEventArgs e)
-        {
-            mediaPlayer.Stop();
-        }
-
-        private void BtnPNext_Click(object sender, RoutedEventArgs e)
-        {
-            if (playList.SelectedIndex < playList.Items.Count-1)
-            {
-                playList.SelectedIndex++;
-                mediaPlayer.Play();
-            }
-        }
-
-        private void BtnPRewind_Click(object sender, RoutedEventArgs e)
-        {
-            if (playList.SelectedIndex > 0)
-            {
-                playList.SelectedIndex--;
-                mediaPlayer.Play();
-            }
-        }
-
-
+        // Selects tracks within the listbox and enables skipping and returning to previous tracks
         private void playList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (playList.Items.Count > 0)
@@ -110,11 +78,59 @@ namespace AudiolyMusicPlayer2._0
                     string? trackPath = playList.Items[selectedItemIndex].ToString();
                     string? trackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(trackPath);
                     mediaPlayer.Open(new Uri(trackPath!));
+                    mediaPlayer.Play();  
+
                     lblSongname.Visibility = Visibility.Visible;
                     lblSongname.Text = trackPathWithoutExt;
-                    mediaPlayer.Play();
                 }
             }
+        }
+
+        // Transport and Control Buttons
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Close();
+            Application.Current.Shutdown();
+        }
+
+        private void BtnPlay_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Play();
+        }
+
+        private void BtnPause_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Pause();
+            trackPaused = true;
+        }
+
+        private void BtnStop_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Stop();
+        }
+
+        private void BtnPlayNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (playList.SelectedIndex < playList.Items.Count-1)
+            {
+                playList.SelectedIndex++;
+                mediaPlayer.Play();
+            }
+        }
+
+        private void BtnPlayPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            if (playList.SelectedIndex > 0)
+            {
+                playList.SelectedIndex--;
+                mediaPlayer.Play();
+            }
+        }
+
+        // TODO volume slider not working
+        private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            mediaPlayer.Volume = (double)VolumeSlider.Value;
         }
     }
 }
