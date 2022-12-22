@@ -19,7 +19,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 // TODO
-// volume slider
 // progress bar
 // continuous playback
 // shuffle
@@ -130,6 +129,11 @@ namespace AudiolyMusicPlayer2._0
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
                 mediaPlayer.Volume = VolumeSlider.Value;
+        }
+
+        private void TimerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+           
         }
     }
 }

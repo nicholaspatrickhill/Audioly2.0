@@ -30,7 +30,7 @@
                     </Button>
                 </Grid>
 
-                <ListBox Style="{StaticResource RoundedListBoxStyle}" Margin ="30" Height="260" x:Name="playList" FontFamily="Arial" Foreground="Black" SelectionChanged="playList_SelectionChanged" >
+                <ListBox Style="{StaticResource RoundedListBoxStyle}" Margin ="30" Height="260" x:Name="playList" FontFamily="Arial" Foreground="Black" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="playList_SelectionChanged" >
                     <ListBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="White"/>
@@ -39,16 +39,14 @@
                     </ListBox.Background>
                 </ListBox>
 
-                <!--<Image Margin="10" Height="200" x:Name="Musicimg" Stretch="Uniform" Source="Images/MusicIcon.png" />-->
-
-                <TextBlock Margin="10" FontSize="19" Text="Song name" Foreground="White" TextAlignment="Center" FontWeight="SemiBold" Visibility="Hidden" x:Name="lblSongname"/>
+                <TextBlock Margin="10" FontSize="19" Text="Song name" Foreground="White" TextAlignment="Center" FontFamily="Arial" FontWeight="SemiBold" Visibility="Hidden" x:Name="lblSongname"/>
 
                 <Grid Margin="0 30 0 0">
                     <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Left" x:Name="lblCurrenttime"/>
                     <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Right" x:Name="lblMusiclength"/>
                 </Grid>
 
-                <Slider Value="0" Minimum="1" Maximum="50" Margin="20 10" Foreground="DeepPink" x:Name="TimerSlider" />
+                <Slider Value="0" Minimum="1" Maximum="50" Margin="20 10" Foreground="Teal" x:Name="TimerSlider" ValueChanged="TimerSlider_ValueChanged" />
 
                 <WrapPanel HorizontalAlignment="Center" Margin="0 30">
                     <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Play Previous" x:Name="btnPRewind" Click="BtnPlayPrevious_Click">
@@ -89,6 +87,8 @@
                 </Grid>
 
                 <TextBlock Margin="20 0" FontSize="36" Text="Audioly" Foreground="DeepPink" TextAlignment="Center" FontFamily="Magneto" FontWeight="ExtraLight" x:Name="lblPlayername"/>
+
+
             </StackPanel>
         </materialDesign:Card>
     </Grid>
