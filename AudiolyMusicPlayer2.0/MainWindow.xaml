@@ -18,11 +18,8 @@
                 </StackPanel.Background>
 
                 <Grid Height="70">
-                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Left" Margin="20 0" ToolTip="Open File" x:Name="btnFile" Click="BtnOpen_Click">
-                        <StackPanel Margin="-5">
-                            <materialDesign:PackIcon Kind="Folder" Width="20" Height="20" />
-                        </StackPanel>
-                    </Button>
+                    <TextBlock Margin="20 10" FontSize="36" Text="Audioly" Foreground="DeepPink" TextAlignment="Center" FontFamily="Magneto" FontWeight="ExtraLight" x:Name="lblPlayername"/>
+
                     <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="20 0" ToolTip="Close" x:Name="btnClose" Click="BtnClose_Click">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="Close" Width="20" Height="20" />
@@ -38,8 +35,22 @@
                         </LinearGradientBrush>
                     </ListBox.Background>
                 </ListBox>
-
+                
+                <Grid>
+                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="70 -10" ToolTip="Remove Track" x:Name="btnRemove" Click="BtnRemove_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="Minus" Width="15" Height="15" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="35 -10" ToolTip="Add Track" x:Name="btnFile" Click="BtnOpen_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="Add" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+                
                 <TextBlock Margin="10" FontSize="19" Text="Song name" Foreground="White" TextAlignment="Center" FontFamily="Arial" FontWeight="SemiBold" Visibility="Hidden" x:Name="lblSongname"/>
+
 
                 <Grid Margin="0 30 0 0">
                     <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Left" x:Name="lblCurrenttime"/>
@@ -86,7 +97,6 @@
                     <Slider Value="0.5" Maximum="1" Margin="175 25" Foreground="Gray" x:Name="VolumeSlider" ValueChanged="VolumeSlider_ValueChanged" />
                 </Grid>
 
-                <TextBlock Margin="20 0" FontSize="36" Text="Audioly" Foreground="DeepPink" TextAlignment="Center" FontFamily="Magneto" FontWeight="ExtraLight" x:Name="lblPlayername"/>
 
 
             </StackPanel>
