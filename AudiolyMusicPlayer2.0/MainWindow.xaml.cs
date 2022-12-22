@@ -22,9 +22,8 @@ using System.Windows.Threading;
 // TODO
 // progress bar
 // timers
-// continuous playback
+// repeat not working...
 // shuffle
-// repeat
 // move items around in listbox for true playlist building
 
 namespace AudiolyMusicPlayer2._0
@@ -66,7 +65,7 @@ namespace AudiolyMusicPlayer2._0
             DragMove();
         } 
 
-        // File processing 
+        // File processing & Playlist building
 
         // Adds tracks to playlist
         private void BtnAddTrack_Click(object sender, RoutedEventArgs e)
@@ -100,8 +99,7 @@ namespace AudiolyMusicPlayer2._0
                 {
                     string? trackPath = playList.Items[selectedItemIndex].ToString();
                     string? trackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(trackPath);
-                    mediaPlayer.Open(new Uri(trackPath!));
-                    //mediaPlayer.Play();  
+                    mediaPlayer.Open(new Uri(trackPath!)); 
 
                     lblSongname.Visibility = Visibility.Visible;
                     lblSongname.Text = trackPathWithoutExt;
@@ -109,9 +107,30 @@ namespace AudiolyMusicPlayer2._0
             }
         }
 
+        // Continues advancing through the playlist:
+        private void ContinuePlaying()
+        {
+            mediaPlayer.MediaEnded += new EventHandler(ContinuePlaylist);
+            return;
+        }
+
+        private void ContinuePlaylist(object sender, EventArgs e)
+        {
+            trackPaused = false;
+
+            if (playList.SelectedIndex < playList.Items.Count - 1)
+            {
+                playList.SelectedIndex++;
+                mediaPlayer.Play();
+            }
+            //playList.SelectedIndex++;
+            //mediaPlayer.Play();
+        }
+
         private void playList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             mediaPlayer.Play();
+            ContinuePlaying();
         }
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
@@ -154,7 +173,7 @@ namespace AudiolyMusicPlayer2._0
             playList.Items.Insert(newIndex, selected);
         }
 
-        // Transport and Audio Control Buttons
+        // Transport & Audio Control Buttons
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Close();
@@ -169,6 +188,7 @@ namespace AudiolyMusicPlayer2._0
         private void BtnPlay_Click(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Play();
+            ContinuePlaying();
         }
 
         private void BtnPause_Click(object sender, RoutedEventArgs e)
@@ -207,15 +227,18 @@ namespace AudiolyMusicPlayer2._0
 
         private void BtnRepeat_Click(object sender, RoutedEventArgs e)
         {
-            mediaPlayer.MediaEnded += new EventHandler(Media_Ended);
+            mediaPlayer.MediaEnded += new EventHandler(RepeatTrack);
             return;
         }
 
-        private void Media_Ended(object sender, EventArgs e)
+        private void RepeatTrack(object sender, EventArgs e)
         {
             mediaPlayer.Position = TimeSpan.Zero;
             mediaPlayer.Play();
         }
+
+       
+
 
         // Sliders
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
