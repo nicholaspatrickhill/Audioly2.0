@@ -23,7 +23,7 @@ using System.Windows.Shapes;
 // timers
 // continuous playback
 // shuffle
-// move items around and remove them in listbox for true playlist building
+// move items around in listbox for true playlist building
 
 namespace AudiolyMusicPlayer2._0
 {
@@ -45,8 +45,10 @@ namespace AudiolyMusicPlayer2._0
             DragMove();
         } 
 
-        // File processing --> adds items to playlist
-        private void BtnOpen_Click(object sender, RoutedEventArgs e)
+        // File processing 
+
+        // Adds tracks to playlist
+        private void BtnAddTrack_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Audio files (*.wav, *.mp3, *.wma, *.ogg, *.flac) | *.wav; *.mp3; *.wma; *.ogg; *.flac";
@@ -86,7 +88,17 @@ namespace AudiolyMusicPlayer2._0
             }
         }
 
-        // Transport and Control Buttons
+        private void BtnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            playList.Items.RemoveAt(playList.Items.IndexOf(playList.SelectedItem));
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            playList.Items.Clear();
+        }
+
+        // Transport and Audio Control Buttons
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Close();
@@ -126,12 +138,6 @@ namespace AudiolyMusicPlayer2._0
                 mediaPlayer.Play();
             }
         }
-
-        private void BtnRemove_Click(object sender, RoutedEventArgs e)
-        {
-            playList.Items.RemoveAt(playList.Items.IndexOf(playList.SelectedItem));
-        }
-
 
         // Sliders
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
