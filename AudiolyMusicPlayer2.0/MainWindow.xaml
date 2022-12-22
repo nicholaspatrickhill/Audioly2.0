@@ -19,6 +19,11 @@
 
                 <Grid Height="70">
                     <TextBlock Margin="20 15" FontSize="36" Text="Audioly" Foreground="DeepPink" TextAlignment="Center" FontFamily="Magneto" FontWeight="ExtraLight" x:Name="lblPlayername"/>
+                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="55 0" ToolTip="Close" x:Name="btnMinimize" Click="btnMinimize_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="Minus" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
                     <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="20 0" ToolTip="Close" x:Name="btnClose" Click="BtnClose_Click">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="Close" Width="20" Height="20" />

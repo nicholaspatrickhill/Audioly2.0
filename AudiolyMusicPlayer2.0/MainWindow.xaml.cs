@@ -105,6 +105,11 @@ namespace AudiolyMusicPlayer2._0
             Application.Current.Shutdown();
         }
 
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
         private void BtnPlay_Click(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Play();
