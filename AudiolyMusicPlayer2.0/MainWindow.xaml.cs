@@ -17,12 +17,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 // TODO
 // progress bar
 // timers
 // continuous playback
 // shuffle
+// repeat
 // move items around in listbox for true playlist building
 
 namespace AudiolyMusicPlayer2._0
@@ -33,12 +35,31 @@ namespace AudiolyMusicPlayer2._0
     public partial class MainWindow : Window
     {
         private MediaPlayer mediaPlayer = new MediaPlayer();
+        //DispatcherTimer timer = new DispatcherTimer();
         bool trackPaused = false;
+        //bool timerSliderDragging = false;
 
         public MainWindow()
         {
             InitializeComponent();
+            //timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            //timer.Tick += new EventHandler(Timer_Tick);
         }
+
+        //private void Timer_Tick(object sender, EventArgs e)
+        //{
+        //    if (!timerSliderDragging)
+        //    {
+        //        TimerSlider.Value = mediaPlayer.Position.TotalMilliseconds;
+        //    }
+        //}
+
+        //private void ContinuePlaying()
+        //{
+        //    trackPaused = false;
+        //    mediaPlayer.Play();
+        //    //timer.Start();
+        //}
 
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -86,6 +107,11 @@ namespace AudiolyMusicPlayer2._0
                     lblSongname.Text = trackPathWithoutExt;
                 }
             }
+        }
+
+        private void playList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            mediaPlayer.Play();
         }
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
@@ -185,9 +211,6 @@ namespace AudiolyMusicPlayer2._0
            
         }
 
-        // Drag and Drop Items in the playList box
-
-        // Keeps track of data and where it started
-      
+       
     }
 }

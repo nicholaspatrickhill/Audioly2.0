@@ -31,7 +31,7 @@
                     </Button>
                 </Grid>
 
-                <ListBox Style="{StaticResource RoundedListBoxStyle}" Margin ="30" Height="260" x:Name="playList" FontFamily="Arial" Foreground="Black" ScrollViewer.VerticalScrollBarVisibility="Hidden" AllowDrop="True" SelectionChanged="playList_SelectionChanged" >
+                <ListBox Style="{StaticResource RoundedListBoxStyle}" Margin ="30" Height="260" x:Name="playList" FontFamily="Arial" Foreground="Black" ScrollViewer.VerticalScrollBarVisibility="Hidden" AllowDrop="True" SelectionChanged="playList_SelectionChanged" MouseDoubleClick="playList_MouseDoubleClick" >
                     <ListBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="White"/>
@@ -106,6 +106,11 @@
                     <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Shuffle" x:Name="btnShuffle">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="ShuffleVariant" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Repeat" x:Name="btnRepeat">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="Repeat" Width="20" Height="20" />
                         </StackPanel>
                     </Button>
                 </WrapPanel>
