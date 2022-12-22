@@ -200,17 +200,32 @@ namespace AudiolyMusicPlayer2._0
             }
         }
 
+        private void BtnShuffle_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnRepeat_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.MediaEnded += new EventHandler(Media_Ended);
+            return;
+        }
+
+        private void Media_Ended(object sender, EventArgs e)
+        {
+            mediaPlayer.Position = TimeSpan.Zero;
+            mediaPlayer.Play();
+        }
+
         // Sliders
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-                mediaPlayer.Volume = VolumeSlider.Value;
+            mediaPlayer.Volume = VolumeSlider.Value;
         }
 
         private void TimerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
            
         }
-
-       
     }
 }

@@ -103,22 +103,23 @@
                             <materialDesign:PackIcon Kind="Stop" Width="20" Height="20" />
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Shuffle" x:Name="btnShuffle">
+                    <ToggleButton Style="{StaticResource CTriggerButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Shuffle" x:Name="btnShuffle" Click="BtnShuffle_Click">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="ShuffleVariant" Width="20" Height="20" />
                         </StackPanel>
-                    </Button>
-                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Repeat" x:Name="btnRepeat">
+                    </ToggleButton>
+                    <ToggleButton Style="{StaticResource CTriggerButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Repeat" x:Name="btnRepeat" Click="BtnRepeat_Click">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="Repeat" Width="20" Height="20" />
                         </StackPanel>
-                    </Button>
+                    </ToggleButton>
                 </WrapPanel>
 
                 <Grid>
                     <materialDesign:PackIcon Kind="VolumeHigh" Width="20" Height="20" Foreground="Gray" Margin="150 25"/>
                     <Slider Value="0.35" Maximum="1" Margin="175 25" Foreground="Gray" x:Name="VolumeSlider" ValueChanged="VolumeSlider_ValueChanged" />
                 </Grid>
+                
 
             </StackPanel>
         </materialDesign:Card>
