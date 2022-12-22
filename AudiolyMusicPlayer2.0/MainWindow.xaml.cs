@@ -127,10 +127,9 @@ namespace AudiolyMusicPlayer2._0
             }
         }
 
-        // TODO volume slider not working
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            mediaPlayer.Volume = (double)VolumeSlider.Value;
+                mediaPlayer.Volume = VolumeSlider.Value;
         }
     }
 }

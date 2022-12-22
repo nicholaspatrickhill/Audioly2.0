@@ -85,7 +85,7 @@
 
                 <Grid>
                     <materialDesign:PackIcon Kind="VolumeHigh" Width="20" Height="20" Foreground="Gray" Margin="150 25"/>
-                    <Slider Value="0" Minimum="1" Maximum="50" Margin="175 25" Foreground="Gray" x:Name="VolumeSlider" ValueChanged="VolumeSlider_ValueChanged" />
+                    <Slider Value="0.5" Maximum="1" Margin="175 25" Foreground="Gray" x:Name="VolumeSlider" ValueChanged="VolumeSlider_ValueChanged" />
                 </Grid>
 
                 <TextBlock Margin="20 0" FontSize="36" Text="Audioly" Foreground="DeepPink" TextAlignment="Center" FontFamily="Magneto" FontWeight="ExtraLight" x:Name="lblPlayername"/>
