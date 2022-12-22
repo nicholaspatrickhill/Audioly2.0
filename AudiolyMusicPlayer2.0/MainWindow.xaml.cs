@@ -60,7 +60,7 @@ namespace AudiolyMusicPlayer2._0
 
             if (result == true)
             {
-                files = openFileDialog.FileNames;
+                files = openFileDialog.FileNames;              
 
                 for (int i = 0; i < files.Length; i++)
                 {
@@ -80,7 +80,7 @@ namespace AudiolyMusicPlayer2._0
                     string? trackPath = playList.Items[selectedItemIndex].ToString();
                     string? trackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(trackPath);
                     mediaPlayer.Open(new Uri(trackPath!));
-                    mediaPlayer.Play();  
+                    //mediaPlayer.Play();  
 
                     lblSongname.Visibility = Visibility.Visible;
                     lblSongname.Text = trackPathWithoutExt;
@@ -91,11 +91,41 @@ namespace AudiolyMusicPlayer2._0
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
             playList.Items.RemoveAt(playList.Items.IndexOf(playList.SelectedItem));
+            lblSongname.Visibility = Visibility.Hidden;
+            mediaPlayer.Stop();
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             playList.Items.Clear();
+            lblSongname.Visibility = Visibility.Hidden;
+            mediaPlayer.Stop();
+        }
+
+        private void BtnDown_Click(object sender, RoutedEventArgs e)
+        {
+            MoveItem(+1);
+        }
+
+        private void BtnUp_Click(object sender, RoutedEventArgs e)
+        {
+            MoveItem(-1);
+        }
+
+        public void MoveItem(int direction)
+        {
+            if (playList.SelectedItem == null || playList.SelectedIndex < 0)
+                return;
+
+            int newIndex = playList.SelectedIndex + direction;
+
+            if (newIndex < 0 || newIndex >= playList.Items.Count)
+                return;
+
+            object selected = playList.SelectedItem;
+
+            playList.Items.Remove(selected);
+            playList.Items.Insert(newIndex, selected);
         }
 
         // Transport and Audio Control Buttons
@@ -155,6 +185,9 @@ namespace AudiolyMusicPlayer2._0
            
         }
 
-        
+        // Drag and Drop Items in the playList box
+
+        // Keeps track of data and where it started
+      
     }
 }
