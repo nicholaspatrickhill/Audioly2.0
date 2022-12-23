@@ -27,7 +27,8 @@ using System.Windows.Xps;
 // shuffle is working but it still shuffles one more time after the button is turned off...
 // move items around in listbox for true playlist building
 
-namespace AudiolyMusicPlayer2._0
+namespace AudiolyMusicPlayer2
+     ._0
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -136,7 +137,7 @@ namespace AudiolyMusicPlayer2._0
             return;
         }
 
-        private void ContinuePlaylist(object sender, EventArgs e)
+        private void ContinuePlaylist(object? sender, EventArgs e)
         {
             trackPaused = false;
 
