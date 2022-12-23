@@ -76,7 +76,7 @@
                     <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Right" x:Name="lblMusiclength"/>
                 </Grid>
 
-                <Slider Margin="20 10" Foreground="Teal" x:Name="SeekbarSlider" ValueChanged="SeekbarSlider_ValueChanged" Maximum="1" Value="0.5" TickPlacement="None" TickFrequency="1" MouseDown="SeekbarSlider_MouseDown" MouseUp="SeekbarSlider_MouseUp"/>
+                <Slider Margin="20 10" Foreground="Teal" x:Name="SeekbarSlider" ValueChanged="SeekbarSlider_ValueChanged" Maximum="1" Value="0.5" TickPlacement="None" TickFrequency="1" PreviewMouseDown="SeekbarSlider_PreviewMouseDown" PreviewMouseUp="SeekbarSlider_PreviewMouseUp"/>
 
                 <WrapPanel HorizontalAlignment="Center" Margin="0 30">
                     <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Play Previous" x:Name="btnPRewind" Click="BtnPlayPrevious_Click">

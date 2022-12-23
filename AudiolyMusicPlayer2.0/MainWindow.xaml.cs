@@ -22,7 +22,6 @@ using System.Windows.Threading;
 using System.Windows.Xps;
 
 // TODO
-// progress bar
 // timers
 // shuffle is working but it still shuffles one more time after the button is turned off...
 // move items around in listbox for true playlist building
@@ -301,7 +300,6 @@ namespace AudiolyMusicPlayer2._0
             mediaPlayer.Volume = VolumeSlider.Value;
         }
 
-        // TODO write methods for progress bar
         private void SeekbarSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             int SeekbarSliderValue = (int)SeekbarSlider.Value;
@@ -311,16 +309,16 @@ namespace AudiolyMusicPlayer2._0
             }
         }
 
-        private void SeekbarSlider_MouseDown(object sender, MouseButtonEventArgs e)
+        private void SeekbarSlider_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             seekbarSliderDragging = true;
             mediaPlayer.Stop();
         }
 
-        private void SeekbarSlider_MouseUp(object sender, MouseButtonEventArgs e)
+        private void SeekbarSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             seekbarSliderDragging = false;
-            mediaPlayer.Stop();
+            mediaPlayer.Play();
         }
     }
 }
