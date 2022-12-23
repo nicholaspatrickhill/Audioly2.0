@@ -27,15 +27,14 @@ using System.Windows.Xps;
 // shuffle is working but it still shuffles one more time after the button is turned off...
 // move items around in listbox for true playlist building
 
-namespace AudiolyMusicPlayer2
-     ._0
+namespace AudiolyMusicPlayer2._0
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MediaPlayer mediaPlayer = new MediaPlayer();
+        private readonly MediaPlayer mediaPlayer = new MediaPlayer();
         bool trackPaused = false;
         bool repeatSelected;
         bool shuffleSelected;
@@ -101,8 +100,8 @@ namespace AudiolyMusicPlayer2
                 if (shuffleSelected)
                 {
                     // Generate a random index for the listbox
-                    Random random = new Random();
-                    int randomTrackSelection = random.Next(playList.Items.Count);
+                    Random randomTrackSelector = new Random();
+                    int randomTrackSelection = randomTrackSelector.Next(playList.Items.Count);
 
                     // Play the track at the random index
                     string? randomTrackPath = playList.Items[randomTrackSelection].ToString();
@@ -128,7 +127,6 @@ namespace AudiolyMusicPlayer2
                 }
             }
         }
-
 
         // Continues advancing through the playlist:
         private void ContinuePlaying()
@@ -166,9 +164,9 @@ namespace AudiolyMusicPlayer2
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
+            mediaPlayer.Stop();
             playList.Items.RemoveAt(playList.Items.IndexOf(playList.SelectedItem));
             lblSongname.Visibility = Visibility.Hidden;
-            mediaPlayer.Stop();
         }
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
@@ -280,9 +278,12 @@ namespace AudiolyMusicPlayer2
         }
 
         // TODO write methods for progress bar
-        private void TimerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void SeekbarSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-           
+            
         }
+
+        
+       
     }
 }

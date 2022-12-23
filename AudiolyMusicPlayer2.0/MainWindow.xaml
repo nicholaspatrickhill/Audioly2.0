@@ -76,7 +76,7 @@
                     <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Right" x:Name="lblMusiclength"/>
                 </Grid>
 
-                <Slider Value="0" Minimum="1" Maximum="50" Margin="20 10" Foreground="Teal" x:Name="TimerSlider" ValueChanged="TimerSlider_ValueChanged" />
+                <Slider Value="0" Minimum="1" Maximum="50" Margin="20 10" Foreground="Teal" x:Name="SeekbarSlider" ValueChanged="SeekbarSlider_ValueChanged" />
 
                 <WrapPanel HorizontalAlignment="Center" Margin="0 30">
                     <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Play Previous" x:Name="btnPRewind" Click="BtnPlayPrevious_Click">

@@ -26,7 +26,6 @@
                 <Setter Property="BorderBrush" Value="HotPink" />
                 <Setter Property="Width" Value="40" />
                 <Setter Property="Height" Value="40" />
-
                 <Style.Triggers>
                     <Trigger Property="IsChecked" Value="True">
                         <Setter Property="Background" Value="HotPink" />
@@ -47,7 +46,6 @@
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"></Setter>
                     </Style>
-                  
                 </Style.Resources>
             </Style>
         </ResourceDictionary>
