@@ -9,8 +9,8 @@
         Height="775" Width="775" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}">
     <Grid Background="{x:Null}">
         
-        <materialDesign:Card Margin="10,10,10,10" UniformCornerRadius="20" ClipContent="True" Background="{x:Null}" MouseDown="Card_MouseDown" Grid.ColumnSpan="3">
-            <StackPanel Margin="10,10,10,10">
+        <materialDesign:Card Margin="10" UniformCornerRadius="20" ClipContent="True" Background="{x:Null}" MouseDown="Card_MouseDown" >
+            <StackPanel>
                 <StackPanel.Background>
                     <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.3,1">
                         <GradientStop Color="#121212" Offset="1"/>
@@ -18,7 +18,7 @@
                     </LinearGradientBrush>
                 </StackPanel.Background>
 
-                <Grid>
+                <Grid Height ="70">
                     <TextBlock Margin="5,15,5,10" FontSize="36" Text="Audioly" Foreground="DeepPink" TextAlignment="Center" FontFamily="Magneto" FontWeight="ExtraLight" x:Name="lblPlayername"/>
                     <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="75 0" ToolTip="Minimize" x:Name="btnMinimize" Click="btnMinimize_Click">
                         <StackPanel Margin="-5">
