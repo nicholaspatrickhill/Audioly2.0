@@ -40,7 +40,6 @@ namespace AudiolyMusicPlayer2._0
         bool shuffleSelected;
         bool seekbarSliderDragging = false;
         
-        
         public MainWindow()
         {
             InitializeComponent();
@@ -85,71 +84,35 @@ namespace AudiolyMusicPlayer2._0
             }
         }
 
-        // Selects tracks within the listbox and enables skipping and returning to previous tracks
-
-        //private void playList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (playList.Items.Count > 0)
-        //    {
-        //        int selectedItemIndex = playList.SelectedIndex;
-        //        if (selectedItemIndex > -1)
-        //        {
-        //            string? trackPath = playList.Items[selectedItemIndex].ToString();
-        //            string? trackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(trackPath);
-        //            mediaPlayer.Open(new Uri(trackPath!)); 
-
-        //            lblSongname.Visibility = Visibility.Visible;
-        //            lblSongname.Text = trackPathWithoutExt;
-        //        }
-        //    }
-        //}
 
         private void PlayList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (playList.Items.Count > 0)
             {
-                // Check if shuffle is selected
-                if (shuffleSelected)
+                int selectedItemIndex = playList.SelectedIndex;
+                if (selectedItemIndex > -1)
                 {
-                    // Generate a random index for the listbox
-                    Random randomTrackSelector = new Random();
-                    int randomTrackSelection = randomTrackSelector.Next(playList.Items.Count);
-
-                    // Play the track at the random index
-                    string? randomTrackPath = playList.Items[randomTrackSelection].ToString();
-                    string? randomTrackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(randomTrackPath);
-                    mediaPlayer.Open(new Uri(randomTrackPath!));
+                    string? trackPath = playList.Items[selectedItemIndex].ToString();
+                    string? trackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(trackPath);
+                    mediaPlayer.Open(new Uri(trackPath!));
+                    mediaPlayer.MediaOpened += new EventHandler(Media_Opened);
 
                     lblSongname.Visibility = Visibility.Visible;
-                    lblSongname.Text = randomTrackPathWithoutExt;
-
-                    
-                }
-                else
-                {
-                    int selectedItemIndex = playList.SelectedIndex;
-                    if (selectedItemIndex > -1)
-                    {
-                        // Play the selected track
-                        string? trackPath = playList.Items[selectedItemIndex].ToString();
-                        string? trackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(trackPath);
-                        mediaPlayer.Open(new Uri(trackPath!));
-                        mediaPlayer.MediaOpened += new EventHandler(Media_Opened);
-
-                        lblSongname.Visibility = Visibility.Visible;
-                        lblSongname.Text = trackPathWithoutExt;
-                    }
+                    lblSongname.Text = trackPathWithoutExt;
                 }
             }
-        }
+        }   
 
         private void Media_Opened(object? sender, EventArgs e)
         {
             SeekbarSlider.Maximum = mediaPlayer.NaturalDuration.TimeSpan.TotalMilliseconds;
             SeekbarSlider.Value = 1;
+
+            //lblCurrenttime.Text = currentTime.ToString();
+            //lblMusiclength.Text = mediaPlayer.NaturalDuration.ToString();
         }
 
-        // Continues advancing through the playlist:
+        // Continues advancing through the playlist after track has ended:
         private void ContinuePlaying()
         {
             mediaPlayer.MediaEnded += new EventHandler(ContinuePlaylist);
@@ -164,7 +127,12 @@ namespace AudiolyMusicPlayer2._0
             {
                 RepeatTrack();
             }
-            else if (repeatSelected == false && playList.SelectedIndex < playList.Items.Count - 1)
+            else if (shuffleSelected == true)
+            {
+                PlayShuffledPlaylist();
+                mediaPlayer.Play();
+            }
+            else if (shuffleSelected == false && repeatSelected == false && playList.SelectedIndex < playList.Items.Count - 1)
             {
                 playList.SelectedIndex++;
                 mediaPlayer.Play();
@@ -176,6 +144,20 @@ namespace AudiolyMusicPlayer2._0
         {
             mediaPlayer.Position = TimeSpan.Zero;
             mediaPlayer.Play();
+        }
+
+        private void PlayShuffledPlaylist()
+        {
+            Random randomTrackSelector = new Random();
+            int randomTrackSelection = randomTrackSelector.Next(playList.Items.Count);
+
+            string? randomTrackPath = playList.Items[randomTrackSelection].ToString();
+            string? randomTrackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(randomTrackPath);
+            mediaPlayer.Open(new Uri(randomTrackPath!));
+            mediaPlayer.MediaOpened += new EventHandler(Media_Opened);
+
+            lblSongname.Visibility = Visibility.Visible;
+            lblSongname.Text = randomTrackPathWithoutExt;
         }
 
         private void PlayList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -240,6 +222,7 @@ namespace AudiolyMusicPlayer2._0
         private void BtnPlay_Click(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Play();
+            timer.Start();
             ContinuePlaying();
         }
 
@@ -274,7 +257,15 @@ namespace AudiolyMusicPlayer2._0
 
         private void BtnShuffle_Click(object sender, RoutedEventArgs e)
         {
-            shuffleSelected = true; 
+            shuffleSelected = true;
+
+            if (playList.Items.Count > 0)
+            {
+                PlayShuffledPlaylist();
+                mediaPlayer.Play();
+                timer.Start();
+                ContinuePlaying();
+            }
         }
 
         private void BtnRemoveShuffle_Click(object sender, RoutedEventArgs e)
