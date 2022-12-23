@@ -35,13 +35,26 @@ namespace AudiolyMusicPlayer2._0
     public partial class MainWindow : Window
     {
         private readonly MediaPlayer mediaPlayer = new MediaPlayer();
-        bool trackPaused = false;
+        DispatcherTimer timer = new DispatcherTimer();
+        bool trackPaused;
         bool repeatSelected;
         bool shuffleSelected;
-
+        bool seekbarSliderDragging = false;
+        
+        
         public MainWindow()
         {
             InitializeComponent();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            timer.Tick += new EventHandler(Timer_Tick);
+        }
+
+        private void Timer_Tick(object? sender, EventArgs e)
+        {
+            if (!seekbarSliderDragging)
+            {
+                SeekbarSlider.Value = mediaPlayer.Position.TotalMilliseconds;
+            }
         }
 
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
@@ -110,6 +123,8 @@ namespace AudiolyMusicPlayer2._0
 
                     lblSongname.Visibility = Visibility.Visible;
                     lblSongname.Text = randomTrackPathWithoutExt;
+
+                    
                 }
                 else
                 {
@@ -120,12 +135,19 @@ namespace AudiolyMusicPlayer2._0
                         string? trackPath = playList.Items[selectedItemIndex].ToString();
                         string? trackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(trackPath);
                         mediaPlayer.Open(new Uri(trackPath!));
+                        mediaPlayer.MediaOpened += new EventHandler(Media_Opened);
 
                         lblSongname.Visibility = Visibility.Visible;
                         lblSongname.Text = trackPathWithoutExt;
                     }
                 }
             }
+        }
+
+        private void Media_Opened(object? sender, EventArgs e)
+        {
+            SeekbarSlider.Maximum = mediaPlayer.NaturalDuration.TimeSpan.TotalMilliseconds;
+            SeekbarSlider.Value = 1;
         }
 
         // Continues advancing through the playlist:
@@ -147,6 +169,7 @@ namespace AudiolyMusicPlayer2._0
             {
                 playList.SelectedIndex++;
                 mediaPlayer.Play();
+                timer.Start();
             }
         }
 
@@ -159,6 +182,7 @@ namespace AudiolyMusicPlayer2._0
         private void PlayList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             mediaPlayer.Play();
+            timer.Start();
             ContinuePlaying();
         }
 
@@ -171,9 +195,9 @@ namespace AudiolyMusicPlayer2._0
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
+            mediaPlayer.Stop();
             playList.Items.Clear();
             lblSongname.Visibility = Visibility.Hidden;
-            mediaPlayer.Stop();
         }
 
         private void BtnDown_Click(object sender, RoutedEventArgs e)
@@ -280,10 +304,23 @@ namespace AudiolyMusicPlayer2._0
         // TODO write methods for progress bar
         private void SeekbarSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            
+            int SeekbarSliderValue = (int)SeekbarSlider.Value;
+            if (seekbarSliderDragging)
+            {
+                mediaPlayer.Position = TimeSpan.FromMilliseconds(SeekbarSliderValue);
+            }
         }
 
-        
-       
+        private void SeekbarSlider_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            seekbarSliderDragging = true;
+            mediaPlayer.Stop();
+        }
+
+        private void SeekbarSlider_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            seekbarSliderDragging = false;
+            mediaPlayer.Stop();
+        }
     }
 }
