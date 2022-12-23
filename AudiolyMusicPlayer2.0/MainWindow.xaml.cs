@@ -74,22 +74,60 @@ namespace AudiolyMusicPlayer2._0
         }
 
         // Selects tracks within the listbox and enables skipping and returning to previous tracks
+
+        //private void playList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (playList.Items.Count > 0)
+        //    {
+        //        int selectedItemIndex = playList.SelectedIndex;
+        //        if (selectedItemIndex > -1)
+        //        {
+        //            string? trackPath = playList.Items[selectedItemIndex].ToString();
+        //            string? trackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(trackPath);
+        //            mediaPlayer.Open(new Uri(trackPath!)); 
+
+        //            lblSongname.Visibility = Visibility.Visible;
+        //            lblSongname.Text = trackPathWithoutExt;
+        //        }
+        //    }
+        //}
+
         private void playList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (playList.Items.Count > 0)
             {
-                int selectedItemIndex = playList.SelectedIndex;
-                if (selectedItemIndex > -1)
+                // Check if shuffle is selected
+                if (shuffleSelected)
                 {
-                    string? trackPath = playList.Items[selectedItemIndex].ToString();
-                    string? trackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(trackPath);
-                    mediaPlayer.Open(new Uri(trackPath!)); 
+                    // Generate a random index for the listbox
+                    Random random = new Random();
+                    int randomTrackSelection = random.Next(playList.Items.Count);
+
+                    // Play the track at the random index
+                    string? randomTrackPath = playList.Items[randomTrackSelection].ToString();
+                    string? randomTrackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(randomTrackPath);
+                    mediaPlayer.Open(new Uri(randomTrackPath!));
 
                     lblSongname.Visibility = Visibility.Visible;
-                    lblSongname.Text = trackPathWithoutExt;
+                    lblSongname.Text = randomTrackPathWithoutExt;
+                }
+                else
+                {
+                    int selectedItemIndex = playList.SelectedIndex;
+                    if (selectedItemIndex > -1)
+                    {
+                        // Play the selected track
+                        string? trackPath = playList.Items[selectedItemIndex].ToString();
+                        string? trackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(trackPath);
+                        mediaPlayer.Open(new Uri(trackPath!));
+
+                        lblSongname.Visibility = Visibility.Visible;
+                        lblSongname.Text = trackPathWithoutExt;
+                    }
                 }
             }
         }
+
 
         // Continues advancing through the playlist:
         private void ContinuePlaying()
@@ -212,17 +250,14 @@ namespace AudiolyMusicPlayer2._0
             }
         }
 
-        // TODO Write methods for shuffling playlist
         private void BtnShuffle_Click(object sender, RoutedEventArgs e)
         {
-            shuffleSelected = true;
-
+            shuffleSelected = true; 
         }
 
         private void BtnRemoveShuffle_Click(object sender, RoutedEventArgs e)
         {
             shuffleSelected = false;
-
         }
 
         private void BtnRepeat_Click(object sender, RoutedEventArgs e)
