@@ -24,7 +24,7 @@ using System.Windows.Xps;
 // TODO
 // progress bar
 // timers
-// shuffle
+// shuffle is working but it still shuffles one more time after the button is turned off...
 // move items around in listbox for true playlist building
 
 namespace AudiolyMusicPlayer2._0
@@ -92,7 +92,7 @@ namespace AudiolyMusicPlayer2._0
         //    }
         //}
 
-        private void playList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void PlayList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (playList.Items.Count > 0)
             {
@@ -157,7 +157,7 @@ namespace AudiolyMusicPlayer2._0
             mediaPlayer.Play();
         }
 
-        private void playList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void PlayList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             mediaPlayer.Play();
             ContinuePlaying();
@@ -170,7 +170,7 @@ namespace AudiolyMusicPlayer2._0
             mediaPlayer.Stop();
         }
 
-        private void btnClear_Click(object sender, RoutedEventArgs e)
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
             playList.Items.Clear();
             lblSongname.Visibility = Visibility.Hidden;
@@ -210,7 +210,7 @@ namespace AudiolyMusicPlayer2._0
             Application.Current.Shutdown();
         }
 
-        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }

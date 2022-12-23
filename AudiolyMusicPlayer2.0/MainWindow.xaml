@@ -20,7 +20,7 @@
 
                 <Grid Height ="70">
                     <TextBlock Margin="5,15,5,10" FontSize="36" Text="Audioly" Foreground="DeepPink" TextAlignment="Center" FontFamily="Magneto" FontWeight="ExtraLight" x:Name="lblPlayername"/>
-                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="75 0" ToolTip="Minimize" x:Name="btnMinimize" Click="btnMinimize_Click">
+                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="75 0" ToolTip="Minimize" x:Name="btnMinimize" Click="BtnMinimize_Click">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="Minus" Width="20" Height="20" />
                         </StackPanel>
@@ -32,7 +32,7 @@
                     </Button>
                 </Grid>
 
-                <ListBox Style="{StaticResource RoundedListBoxStyle}" Margin ="30" Height="260" x:Name="playList" FontFamily="Arial" Foreground="Black" ScrollViewer.VerticalScrollBarVisibility="Hidden" AllowDrop="True" SelectionChanged="playList_SelectionChanged" MouseDoubleClick="playList_MouseDoubleClick" >
+                <ListBox Style="{StaticResource RoundedListBoxStyle}" Margin ="30" Height="260" x:Name="playList" FontFamily="Arial" Foreground="Black" ScrollViewer.VerticalScrollBarVisibility="Hidden" AllowDrop="True" SelectionChanged="PlayList_SelectionChanged" MouseDoubleClick="PlayList_MouseDoubleClick" >
                     <ListBox.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="White"/>
@@ -52,7 +52,7 @@
                             <materialDesign:PackIcon Kind="ArrowDown" Width="20" Height="20" />
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="115 -15" ToolTip="Clear All" x:Name="btnClear" Click="btnClear_Click">
+                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="115 -15" ToolTip="Clear All" x:Name="btnClear" Click="BtnClear_Click">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="Delete" Width="20" Height="20" />
                         </StackPanel>
