@@ -8,9 +8,14 @@
         mc:Ignorable="d"
         Height="775" Width="775" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}">
     <Grid Background="{x:Null}">
+<<<<<<< HEAD
         
         <materialDesign:Card Margin="10" UniformCornerRadius="20" ClipContent="True" Background="{x:Null}" MouseDown="Card_MouseDown" >
             <StackPanel>
+=======
+        <materialDesign:Card Margin="10" UniformCornerRadius="20" ClipContent="True" Background="{x:Null}" MouseDown="Card_MouseDown">
+            <StackPanel Margin="0,35,0,-35">
+>>>>>>> 6872ef56c4843106a36257f274c709dd6fafb37e
                 <StackPanel.Background>
                     <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.3,1">
                         <GradientStop Color="#121212" Offset="1"/>
@@ -18,14 +23,24 @@
                     </LinearGradientBrush>
                 </StackPanel.Background>
 
+<<<<<<< HEAD
                 <Grid Height ="70">
                     <TextBlock Margin="5,15,5,10" FontSize="36" Text="Audioly" Foreground="DeepPink" TextAlignment="Center" FontFamily="Magneto" FontWeight="ExtraLight" x:Name="lblPlayername"/>
                     <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="75 0" ToolTip="Minimize" x:Name="btnMinimize" Click="btnMinimize_Click">
+=======
+                <Grid Height="70">
+                    <TextBlock Margin="20 15" FontSize="36" Text="Audioly" Foreground="DeepPink" TextAlignment="Center" FontFamily="Magneto" FontWeight="ExtraLight" x:Name="lblPlayername"/>
+                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="55 0" ToolTip="Minimize" x:Name="btnMinimize" Click="btnMinimize_Click">
+>>>>>>> 6872ef56c4843106a36257f274c709dd6fafb37e
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="Minus" Width="20" Height="20" />
                         </StackPanel>
                     </Button>
+<<<<<<< HEAD
                     <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="35 0" ToolTip="Close" x:Name="btnClose" Click="BtnClose_Click">
+=======
+                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="20 0" ToolTip="Close" x:Name="btnClose" Click="BtnClose_Click">
+>>>>>>> 6872ef56c4843106a36257f274c709dd6fafb37e
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="Close" Width="20" Height="20" />
                         </StackPanel>
@@ -40,7 +55,36 @@
                         </LinearGradientBrush>
                     </ListBox.Background>
                 </ListBox>
+                
+                <Grid>
+                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="185 -15" ToolTip="Move Track Up" x:Name="btnUp" Click="BtnUp_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="ArrowUp" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="150 -15" ToolTip="Move Track Down" x:Name="btnDown" Click="BtnDown_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="ArrowDown" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="115 -15" ToolTip="Clear All" x:Name="btnClear" Click="btnClear_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="Delete" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="80 -15" ToolTip="Remove Track" x:Name="btnRemove" Click="BtnRemove_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="PlaylistRemove" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="45 -15" ToolTip="Add Track(s)" x:Name="btnAdd" Click="BtnAddTrack_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="PlaylistAdd" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
 
+<<<<<<< HEAD
                 <Grid>
                     <Button Style="{StaticResource SmallActionButtons}" HorizontalAlignment="Right" Margin="185 -15" ToolTip="Move Track Up" x:Name="btnUp" Click="BtnUp_Click">
                         <StackPanel Margin="-5">
@@ -71,6 +115,10 @@
 
                 <TextBlock Margin="30" FontSize="19" Text="Song name" Foreground="White" TextAlignment="Center" FontFamily="Arial" FontWeight="SemiBold" Visibility="Hidden" x:Name="lblSongname"/>
 
+=======
+                <TextBlock Margin="30" FontSize="19" Text="Song name" Foreground="White" TextAlignment="Center" FontFamily="Arial" FontWeight="SemiBold" Visibility="Hidden" x:Name="lblSongname"/>
+
+>>>>>>> 6872ef56c4843106a36257f274c709dd6fafb37e
                 <Grid Margin="0 0 0 0">
                     <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Left" x:Name="lblCurrenttime"/>
                     <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Right" x:Name="lblMusiclength"/>
@@ -120,6 +168,10 @@
                     <materialDesign:PackIcon Kind="VolumeHigh" Width="20" Height="20" Foreground="Gray" Margin="150 25"/>
                     <Slider Value="0.35" Maximum="1" Margin="175 25" Foreground="Gray" x:Name="VolumeSlider" ValueChanged="VolumeSlider_ValueChanged" />
                 </Grid>
+<<<<<<< HEAD
+=======
+                
+>>>>>>> 6872ef56c4843106a36257f274c709dd6fafb37e
 
             </StackPanel>
         </materialDesign:Card>
