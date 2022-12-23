@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +19,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Windows.Xps;
 
 // TODO
 // progress bar
 // timers
-// repeat not working...
 // shuffle
 // move items around in listbox for true playlist building
 
@@ -34,31 +35,14 @@ namespace AudiolyMusicPlayer2._0
     public partial class MainWindow : Window
     {
         private MediaPlayer mediaPlayer = new MediaPlayer();
-        //DispatcherTimer timer = new DispatcherTimer();
         bool trackPaused = false;
-        //bool timerSliderDragging = false;
+        bool repeatSelected;
+        bool shuffleSelected;
 
         public MainWindow()
         {
             InitializeComponent();
-            //timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            //timer.Tick += new EventHandler(Timer_Tick);
         }
-
-        //private void Timer_Tick(object sender, EventArgs e)
-        //{
-        //    if (!timerSliderDragging)
-        //    {
-        //        TimerSlider.Value = mediaPlayer.Position.TotalMilliseconds;
-        //    }
-        //}
-
-        //private void ContinuePlaying()
-        //{
-        //    trackPaused = false;
-        //    mediaPlayer.Play();
-        //    //timer.Start();
-        //}
 
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -118,13 +102,21 @@ namespace AudiolyMusicPlayer2._0
         {
             trackPaused = false;
 
-            if (playList.SelectedIndex < playList.Items.Count - 1)
+            if (repeatSelected == true)
+            {
+                RepeatTrack();
+            }
+            else if (repeatSelected == false && playList.SelectedIndex < playList.Items.Count - 1)
             {
                 playList.SelectedIndex++;
                 mediaPlayer.Play();
             }
-            //playList.SelectedIndex++;
-            //mediaPlayer.Play();
+        }
+
+        private void RepeatTrack()
+        {
+            mediaPlayer.Position = TimeSpan.Zero;
+            mediaPlayer.Play();
         }
 
         private void playList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -220,25 +212,30 @@ namespace AudiolyMusicPlayer2._0
             }
         }
 
+        // TODO Write methods for shuffling playlist
         private void BtnShuffle_Click(object sender, RoutedEventArgs e)
         {
+            shuffleSelected = true;
+
+        }
+
+        private void BtnRemoveShuffle_Click(object sender, RoutedEventArgs e)
+        {
+            shuffleSelected = false;
 
         }
 
         private void BtnRepeat_Click(object sender, RoutedEventArgs e)
         {
-            mediaPlayer.MediaEnded += new EventHandler(RepeatTrack);
-            return;
+            repeatSelected = true;
+            ContinuePlaying();
         }
 
-        private void RepeatTrack(object sender, EventArgs e)
+        private void BtnRemoveRepeat_Click(object sender, RoutedEventArgs e)
         {
-            mediaPlayer.Position = TimeSpan.Zero;
-            mediaPlayer.Play();
+            repeatSelected = false;
+            ContinuePlaying();
         }
-
-       
-
 
         // Sliders
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -246,6 +243,7 @@ namespace AudiolyMusicPlayer2._0
             mediaPlayer.Volume = VolumeSlider.Value;
         }
 
+        // TODO write methods for progress bar
         private void TimerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
            

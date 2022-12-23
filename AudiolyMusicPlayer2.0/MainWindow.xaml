@@ -103,12 +103,12 @@
                             <materialDesign:PackIcon Kind="Stop" Width="20" Height="20" />
                         </StackPanel>
                     </Button>
-                    <ToggleButton Style="{StaticResource CTriggerButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Shuffle" x:Name="btnShuffle" Click="BtnShuffle_Click">
+                    <ToggleButton Style="{StaticResource CTriggerButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Shuffle" x:Name="btnShuffle" Checked="BtnShuffle_Click" Unchecked="BtnRemoveShuffle_Click">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="ShuffleVariant" Width="20" Height="20" />
                         </StackPanel>
                     </ToggleButton>
-                    <ToggleButton Style="{StaticResource CTriggerButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Repeat" x:Name="btnRepeat" Click="BtnRepeat_Click">
+                    <ToggleButton Style="{StaticResource CTriggerButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Repeat" x:Name="btnRepeat" Checked="BtnRepeat_Click" Unchecked="BtnRemoveRepeat_Click">
                         <StackPanel Margin="-5">
                             <materialDesign:PackIcon Kind="Repeat" Width="20" Height="20" />
                         </StackPanel>
