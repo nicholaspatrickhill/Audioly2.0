@@ -22,9 +22,9 @@ using System.Windows.Threading;
 using System.Windows.Xps;
 
 // TODO
-// timers
+// timers not bound to track lengths yet
 // shuffle is working but it still shuffles one more time after the button is turned off...
-// move items around in listbox for true playlist building
+// drag items around in listbox??
 
 namespace AudiolyMusicPlayer2._0
 {
@@ -33,7 +33,7 @@ namespace AudiolyMusicPlayer2._0
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly MediaPlayer mediaPlayer = new MediaPlayer();
+        public readonly MediaPlayer mediaPlayer = new MediaPlayer();
         DispatcherTimer timer = new DispatcherTimer();
         bool trackPaused;
         bool repeatSelected;
@@ -84,7 +84,6 @@ namespace AudiolyMusicPlayer2._0
             }
         }
 
-
         private void PlayList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (playList.Items.Count > 0)
@@ -116,7 +115,6 @@ namespace AudiolyMusicPlayer2._0
         private void ContinuePlaying()
         {
             mediaPlayer.MediaEnded += new EventHandler(ContinuePlaylist);
-            return;
         }
 
         private void ContinuePlaylist(object? sender, EventArgs e)
@@ -158,6 +156,8 @@ namespace AudiolyMusicPlayer2._0
 
             lblSongname.Visibility = Visibility.Visible;
             lblSongname.Text = randomTrackPathWithoutExt;
+
+            ContinuePlaying();
         }
 
         private void PlayList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -207,7 +207,7 @@ namespace AudiolyMusicPlayer2._0
             playList.Items.Insert(newIndex, selected);
         }
 
-        // Transport & Audio Control Buttons
+        // Window Control Buttons
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Close();
@@ -219,6 +219,8 @@ namespace AudiolyMusicPlayer2._0
             WindowState = WindowState.Minimized;
         }
 
+
+        // Transport & Audio Control Buttons
         private void BtnPlay_Click(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Play();

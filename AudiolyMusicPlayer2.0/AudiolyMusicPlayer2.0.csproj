@@ -12,8 +12,4 @@
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
-
 </Project>
