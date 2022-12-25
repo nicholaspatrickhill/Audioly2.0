@@ -25,6 +25,7 @@ using System.Windows.Xps;
 // timers not bound to track lengths yet
 // shuffle is working but it still shuffles one more time after the button is turned off...
 // drag items around in listbox??
+// items can be moved around more than once but are highlighted in blue first... can this be grey? can it remain highlighted while selected?
 
 namespace AudiolyMusicPlayer2._0
 {
@@ -169,9 +170,12 @@ namespace AudiolyMusicPlayer2._0
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
-            mediaPlayer.Stop();
-            playList.Items.RemoveAt(playList.Items.IndexOf(playList.SelectedItem));
-            lblSongname.Visibility = Visibility.Hidden;
+            if (playList.Items.Count > 0)
+            {
+                mediaPlayer.Stop();
+                playList.Items.RemoveAt(playList.Items.IndexOf(playList.SelectedItem));
+                lblSongname.Visibility = Visibility.Hidden;
+            }
         }
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
