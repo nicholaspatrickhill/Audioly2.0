@@ -46,22 +46,20 @@
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"></Setter>
                     </Style>
+                    <LinearGradientBrush x:Key="ListBoxBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="LightGray" Offset="1"/>
+                    </LinearGradientBrush>
                 </Style.Resources>
                 <Setter Property="ItemContainerStyle">
                     <Setter.Value>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Foreground" Value="Black" />
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="BorderThickness" Value="0" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                    <Setter Property="Background" Value="Gray" />
-                                </DataTrigger>
-                            </Style.Triggers>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="BorderThickness" Value="0"></Setter>
                         </Style>
                     </Setter.Value>
                 </Setter>
             </Style>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

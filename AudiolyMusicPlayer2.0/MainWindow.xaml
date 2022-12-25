@@ -34,20 +34,17 @@
 
                 <ListBox 
                     Style="{StaticResource RoundedListBoxStyle}" 
-                    Margin ="30" Height="260" 
-                    x:Name="playList" FontFamily="Arial" 
+                    Margin ="30" 
+                    Height="260" 
+                    x:Name="playList" 
+                    FontFamily="Arial"
+                    FontSize="11"
                     Foreground="Black" 
                     ScrollViewer.VerticalScrollBarVisibility="Hidden" 
                     AllowDrop="True" 
                     SelectionChanged="PlayList_SelectionChanged" 
                     MouseDoubleClick="PlayList_MouseDoubleClick" 
                     SelectionMode="Single">
-                    <ListBox.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="White"/>
-                            <GradientStop Color="LightGray" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ListBox.Background>
                 </ListBox>
 
                 <Grid>

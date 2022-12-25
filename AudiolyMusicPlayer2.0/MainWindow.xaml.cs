@@ -26,6 +26,7 @@ using System.Windows.Xps;
 // shuffle is working but it still shuffles one more time after the button is turned off...
 // drag items around in listbox??
 // items can be moved around more than once but are highlighted in blue first... can this be grey? can it remain highlighted while selected?
+// bug - deleting a currently playing track in Shuffle Mode throws an ArgumentOutOfRangeException.
 
 namespace AudiolyMusicPlayer2._0
 {
@@ -38,9 +39,9 @@ namespace AudiolyMusicPlayer2._0
         DispatcherTimer timer = new DispatcherTimer();
         bool trackPaused;
         bool repeatSelected;
-        bool shuffleSelected;
+        bool shuffleSelected = false;
         bool seekbarSliderDragging = false;
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -145,18 +146,23 @@ namespace AudiolyMusicPlayer2._0
             mediaPlayer.Play();
         }
 
-        private void PlayShuffledPlaylist()
+        public void PlayShuffledPlaylist()
         {
+
             Random randomTrackSelector = new Random();
             int randomTrackSelection = randomTrackSelector.Next(playList.Items.Count);
 
-            string? randomTrackPath = playList.Items[randomTrackSelection].ToString();
-            string? randomTrackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(randomTrackPath);
-            mediaPlayer.Open(new Uri(randomTrackPath!));
-            mediaPlayer.MediaOpened += new EventHandler(Media_Opened);
+            if (playList.Items.Count > 0)
+            //if (randomTrackSelection < playList.Items.Count)
+            {
+                string? randomTrackPath = playList.Items[randomTrackSelection].ToString();
+                string? randomTrackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(randomTrackPath);
+                mediaPlayer.Open(new Uri(randomTrackPath!));
+                mediaPlayer.MediaOpened += new EventHandler(Media_Opened);
 
-            lblSongname.Visibility = Visibility.Visible;
-            lblSongname.Text = randomTrackPathWithoutExt;
+                lblSongname.Visibility = Visibility.Visible;
+                lblSongname.Text = randomTrackPathWithoutExt;
+            }
 
             ContinuePlaying();
         }
@@ -170,7 +176,7 @@ namespace AudiolyMusicPlayer2._0
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
-            if (playList.Items.Count > 0)
+            if (playList.Items.Count > 0 && playList.SelectedIndex < playList.Items.Count)
             {
                 mediaPlayer.Stop();
                 playList.Items.RemoveAt(playList.Items.IndexOf(playList.SelectedItem));
@@ -273,7 +279,6 @@ namespace AudiolyMusicPlayer2._0
                 PlayShuffledPlaylist();
                 mediaPlayer.Play();
                 timer.Start();
-                ContinuePlaying();
             }
         }
 
