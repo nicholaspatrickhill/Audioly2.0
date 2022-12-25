@@ -100,7 +100,7 @@ namespace AudiolyMusicPlayer2._0
                     lblSongname.Text = trackPathWithoutExt;
                 }
             }
-        }   
+        }
 
         private void Media_Opened(object? sender, EventArgs e)
         {
@@ -205,6 +205,9 @@ namespace AudiolyMusicPlayer2._0
 
             playList.Items.Remove(selected);
             playList.Items.Insert(newIndex, selected);
+
+            playList.SelectedItem = selected;
+            playList.SelectedIndex= newIndex;
         }
 
         // Window Control Buttons
