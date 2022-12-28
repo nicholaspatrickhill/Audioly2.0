@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,7 +24,7 @@ using System.Windows.Xps;
 
 // TODO
 // timers not bound to track lengths yet
-// shuffle is working but it still shuffles one more time after the button is turned off...
+// shuffle is working but it still shuffles one more time after the button is turned off... - SET THIS TO ALWAYS RESET TO TRACK 1 FOR NOW
 // drag items around in listbox??
 // items can be moved around more than once but are highlighted in blue first... can this be grey? can it remain highlighted while selected?
 // bug - deleting a currently playing track in Shuffle Mode throws an ArgumentOutOfRangeException.
@@ -37,7 +38,6 @@ namespace AudiolyMusicPlayer2._0
     {
         public readonly MediaPlayer mediaPlayer = new MediaPlayer();
         DispatcherTimer timer = new DispatcherTimer();
-        bool trackPaused;
         bool repeatSelected;
         bool shuffleSelected = false;
         bool seekbarSliderDragging = false;
@@ -60,7 +60,7 @@ namespace AudiolyMusicPlayer2._0
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
-        } 
+        }
 
         // File processing & Playlist building
 
@@ -77,7 +77,7 @@ namespace AudiolyMusicPlayer2._0
 
             if (result == true)
             {
-                files = openFileDialog.FileNames;              
+                files = openFileDialog.FileNames;
 
                 for (int i = 0; i < files.Length; i++)
                 {
@@ -109,8 +109,13 @@ namespace AudiolyMusicPlayer2._0
             SeekbarSlider.Maximum = mediaPlayer.NaturalDuration.TimeSpan.TotalMilliseconds;
             SeekbarSlider.Value = 1;
 
-            //lblCurrenttime.Text = currentTime.ToString();
-            //lblMusiclength.Text = mediaPlayer.NaturalDuration.ToString();
+            //int musicDuration = Convert.ToInt32(mediaPlayer.NaturalDuration);
+            //int musicPosition = Convert.ToInt32(mediaPlayer.Position);
+
+            //int musicLength = musicDuration - musicPosition;
+
+            //lblCurrenttime.Text = mediaPlayer.Position.ToString();
+            //lblMusiclength.Text = musicPosition.ToString();
         }
 
         // Continues advancing through the playlist after track has ended:
@@ -121,8 +126,6 @@ namespace AudiolyMusicPlayer2._0
 
         private void ContinuePlaylist(object? sender, EventArgs e)
         {
-            trackPaused = false;
-
             if (repeatSelected == true)
             {
                 RepeatTrack();
@@ -132,7 +135,7 @@ namespace AudiolyMusicPlayer2._0
                 PlayShuffledPlaylist();
                 mediaPlayer.Play();
             }
-            else if (shuffleSelected == false && repeatSelected == false && playList.SelectedIndex < playList.Items.Count - 1)
+            else if (shuffleSelected == false && repeatSelected == false)
             {
                 playList.SelectedIndex++;
                 mediaPlayer.Play();
@@ -148,12 +151,12 @@ namespace AudiolyMusicPlayer2._0
 
         public void PlayShuffledPlaylist()
         {
+            shuffleSelected = true;
 
             Random randomTrackSelector = new Random();
             int randomTrackSelection = randomTrackSelector.Next(playList.Items.Count);
 
             if (playList.Items.Count > 0)
-            //if (randomTrackSelection < playList.Items.Count)
             {
                 string? randomTrackPath = playList.Items[randomTrackSelection].ToString();
                 string? randomTrackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(randomTrackPath);
@@ -164,7 +167,7 @@ namespace AudiolyMusicPlayer2._0
                 lblSongname.Text = randomTrackPathWithoutExt;
             }
 
-            ContinuePlaying();
+            ContinuePlaying();  
         }
 
         private void PlayList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -217,7 +220,7 @@ namespace AudiolyMusicPlayer2._0
             playList.Items.Insert(newIndex, selected);
 
             playList.SelectedItem = selected;
-            playList.SelectedIndex= newIndex;
+            playList.SelectedIndex = newIndex;
         }
 
         // Window Control Buttons
@@ -244,7 +247,6 @@ namespace AudiolyMusicPlayer2._0
         private void BtnPause_Click(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Pause();
-            trackPaused = true;
         }
 
         private void BtnStop_Click(object sender, RoutedEventArgs e)
@@ -285,6 +287,8 @@ namespace AudiolyMusicPlayer2._0
         private void BtnRemoveShuffle_Click(object sender, RoutedEventArgs e)
         {
             shuffleSelected = false;
+            playList.SelectedIndex = -1;
+            ContinuePlaying();
         }
 
         private void BtnRepeat_Click(object sender, RoutedEventArgs e)
