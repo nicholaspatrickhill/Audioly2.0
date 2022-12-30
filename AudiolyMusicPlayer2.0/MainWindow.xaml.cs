@@ -29,7 +29,7 @@ using System.Windows.Xps;
 // items can be moved around more than once but are highlighted in blue first... can this be grey? can it remain highlighted while selected?
 // bug - deleting a currently playing track in Shuffle Mode throws an ArgumentOutOfRangeException.
 
-namespace AudiolyMusicPlayer2._0
+namespace AudiolyMusicPlayer2
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -82,12 +82,14 @@ namespace AudiolyMusicPlayer2._0
                 for (int i = 0; i < files.Length; i++)
                 {
                     playList.Items.Add(files[i]);
+                    shuffledPlaylist.Add(files[i].ToString());
                 }
             }
         }
 
         private void PlayList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             if (playList.Items.Count > 0)
             {
                 int selectedItemIndex = playList.SelectedIndex;
@@ -149,12 +151,16 @@ namespace AudiolyMusicPlayer2._0
             mediaPlayer.Play();
         }
 
+        // Shuffle method
+
+        List<string> shuffledPlaylist = new List<string>();
+
         public void PlayShuffledPlaylist()
         {
             shuffleSelected = true;
 
             Random randomTrackSelector = new Random();
-            int randomTrackSelection = randomTrackSelector.Next(playList.Items.Count);
+            int randomTrackSelection = randomTrackSelector.Next(shuffledPlaylist.Count);
 
             if (playList.Items.Count > 0)
             {
@@ -167,7 +173,7 @@ namespace AudiolyMusicPlayer2._0
                 lblSongname.Text = randomTrackPathWithoutExt;
             }
 
-            ContinuePlaying();  
+            ContinuePlaying();
         }
 
         private void PlayList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -181,7 +187,7 @@ namespace AudiolyMusicPlayer2._0
         {
             if (playList.Items.Count > 0 && playList.SelectedIndex < playList.Items.Count)
             {
-                mediaPlayer.Stop();
+                mediaPlayer.Stop();  
                 playList.Items.RemoveAt(playList.Items.IndexOf(playList.SelectedItem));
                 lblSongname.Visibility = Visibility.Hidden;
             }
@@ -256,7 +262,7 @@ namespace AudiolyMusicPlayer2._0
 
         private void BtnPlayNext_Click(object sender, RoutedEventArgs e)
         {
-            if (playList.SelectedIndex < playList.Items.Count-1)
+            if (playList.SelectedIndex < playList.Items.Count - 1)
             {
                 playList.SelectedIndex++;
                 mediaPlayer.Play();
@@ -303,7 +309,7 @@ namespace AudiolyMusicPlayer2._0
             ContinuePlaying();
         }
 
-        // Sliders
+        // Sliders      
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             mediaPlayer.Volume = VolumeSlider.Value;
@@ -329,5 +335,6 @@ namespace AudiolyMusicPlayer2._0
             seekbarSliderDragging = false;
             mediaPlayer.Play();
         }
+        
     }
 }
