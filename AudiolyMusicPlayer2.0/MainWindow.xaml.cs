@@ -41,6 +41,7 @@ namespace AudiolyMusicPlayer2
         bool repeatSelected;
         bool shuffleSelected = false;
         bool seekbarSliderDragging = false;
+        bool isPlaying = false;
 
         public MainWindow()
         {
@@ -67,6 +68,8 @@ namespace AudiolyMusicPlayer2
         // Adds tracks to playlist
         private void BtnAddTrack_Click(object sender, RoutedEventArgs e)
         {
+            isPlaying = false;
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Audio files (*.wav, *.mp3, *.wma, *.ogg, *.flac) | *.wav; *.mp3; *.wma; *.ogg; *.flac";
             openFileDialog.Multiselect = true;
@@ -89,7 +92,6 @@ namespace AudiolyMusicPlayer2
 
         private void PlayList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             if (playList.Items.Count > 0)
             {
                 int selectedItemIndex = playList.SelectedIndex;
@@ -147,16 +149,18 @@ namespace AudiolyMusicPlayer2
 
         private void RepeatTrack()
         {
+            isPlaying = true;
+            repeatSelected = true;
+
             mediaPlayer.Position = TimeSpan.Zero;
             mediaPlayer.Play();
         }
-
-        // Shuffle method
 
         List<string> shuffledPlaylist = new List<string>();
 
         public void PlayShuffledPlaylist()
         {
+            isPlaying = true;
             shuffleSelected = true;
 
             Random randomTrackSelector = new Random();
@@ -164,7 +168,7 @@ namespace AudiolyMusicPlayer2
 
             if (playList.Items.Count > 0)
             {
-                string? randomTrackPath = playList.Items[randomTrackSelection].ToString();
+                string? randomTrackPath = shuffledPlaylist[randomTrackSelection];
                 string? randomTrackPathWithoutExt = System.IO.Path.GetFileNameWithoutExtension(randomTrackPath);
                 mediaPlayer.Open(new Uri(randomTrackPath!));
                 mediaPlayer.MediaOpened += new EventHandler(Media_Opened);
@@ -178,6 +182,8 @@ namespace AudiolyMusicPlayer2
 
         private void PlayList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            isPlaying = true; 
+
             mediaPlayer.Play();
             timer.Start();
             ContinuePlaying();
@@ -185,18 +191,25 @@ namespace AudiolyMusicPlayer2
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
-            if (playList.Items.Count > 0 && playList.SelectedIndex < playList.Items.Count)
+            if (isPlaying == false)
             {
-                mediaPlayer.Stop();  
-                playList.Items.RemoveAt(playList.Items.IndexOf(playList.SelectedItem));
-                lblSongname.Visibility = Visibility.Hidden;
+                if (playList.Items.Count > 0 && playList.SelectedIndex < playList.Items.Count)
+                {
+                    mediaPlayer.Stop();
+                    //playList.Items.RemoveAt(playList.Items.IndexOf(playList.SelectedItem));
+                    playList.Items.Remove(playList.SelectedItem);
+                    lblSongname.Visibility = Visibility.Hidden;
+                }
             }
+
+            ContinuePlaying();
         }
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Stop();
             playList.Items.Clear();
+            shuffledPlaylist.Clear();
             lblSongname.Visibility = Visibility.Hidden;
         }
 
@@ -245,6 +258,8 @@ namespace AudiolyMusicPlayer2
         // Transport & Audio Control Buttons
         private void BtnPlay_Click(object sender, RoutedEventArgs e)
         {
+            isPlaying = true; 
+
             mediaPlayer.Play();
             timer.Start();
             ContinuePlaying();
@@ -252,11 +267,15 @@ namespace AudiolyMusicPlayer2
 
         private void BtnPause_Click(object sender, RoutedEventArgs e)
         {
+            isPlaying = false; 
+
             mediaPlayer.Pause();
         }
 
         private void BtnStop_Click(object sender, RoutedEventArgs e)
         {
+            isPlaying = false; 
+
             mediaPlayer.Stop();
         }
 
