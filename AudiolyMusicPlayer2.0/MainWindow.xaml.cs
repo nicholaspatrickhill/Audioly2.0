@@ -1,33 +1,19 @@
-﻿using MaterialDesignThemes.Wpf;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Numerics;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-using System.Windows.Xps;
 
 // TODO
 // timers not bound to track lengths yet
 // shuffle is working but it still shuffles one more time after the button is turned off... - SET THIS TO ALWAYS RESET TO TRACK 1 FOR NOW
 // drag items around in listbox??
 // items can be moved around more than once but are highlighted in blue first... can this be grey? can it remain highlighted while selected?
-// bug - deleting a currently playing track in Shuffle Mode throws an ArgumentOutOfRangeException.
 
 namespace AudiolyMusicPlayer2
 {
@@ -198,11 +184,27 @@ namespace AudiolyMusicPlayer2
                     mediaPlayer.Stop();
                     //playList.Items.RemoveAt(playList.Items.IndexOf(playList.SelectedItem));
                     playList.Items.Remove(playList.SelectedItem);
+                    mediaPlayer.Close();
                     lblSongname.Visibility = Visibility.Hidden;
                 }
             }
+            if (isPlaying == true)
+            {
+                lblIsPlaying.Visibility = Visibility.Visible;
+                lblIsPlaying.Text = "Cannot remove tracks during playback. Please press stop!";
+
+                DispatcherTimer labelTimer = new DispatcherTimer();
+                labelTimer.Interval = new TimeSpan(0, 0, 0, 0, 3000);
+                labelTimer.Tick += new EventHandler(OnTimerEvent);  
+                labelTimer.Start();
+            }
 
             ContinuePlaying();
+        }
+
+        private void OnTimerEvent(object? sender, EventArgs e)
+        {
+            lblIsPlaying.Visibility = Visibility.Hidden;
         }
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
@@ -210,6 +212,7 @@ namespace AudiolyMusicPlayer2
             mediaPlayer.Stop();
             playList.Items.Clear();
             shuffledPlaylist.Clear();
+            mediaPlayer.Close();
             lblSongname.Visibility = Visibility.Hidden;
         }
 
