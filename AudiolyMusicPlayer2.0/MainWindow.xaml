@@ -79,8 +79,8 @@
                 <TextBlock Margin="30" FontSize="19" Text="Song name" Foreground="White" TextAlignment="Center" FontFamily="Arial" FontWeight="SemiBold" Visibility="Hidden" x:Name="lblSongname"/>
 
                 <Grid Margin="0 0 0 0">
-                    <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Left" x:Name="lblCurrenttime"/>
-                    <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Right" x:Name="lblMusiclength"/>
+                    <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Left" x:Name="lblPositionTimer"/>
+                    <TextBlock FontSize="11" Text= "0:00" Margin="20 0" Foreground="White"  FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Right" x:Name="lblDurationTimer"/>
                 </Grid>
 
                 <Slider Margin="20 10" Foreground="Teal" x:Name="SeekbarSlider" ValueChanged="SeekbarSlider_ValueChanged" Maximum="1" TickPlacement="None" TickFrequency="1" PreviewMouseDown="SeekbarSlider_PreviewMouseDown" PreviewMouseUp="SeekbarSlider_PreviewMouseUp"/>

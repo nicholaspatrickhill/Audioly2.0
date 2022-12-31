@@ -23,6 +23,7 @@ namespace AudiolyMusicPlayer2
     {
         private readonly MediaPlayer mediaPlayer = new MediaPlayer();
         DispatcherTimer timer = new DispatcherTimer();
+        DispatcherTimer clockTimer = new DispatcherTimer();
         bool repeatSelected;
         bool shuffleSelected = false;
         bool seekbarSliderDragging = false;
@@ -33,6 +34,9 @@ namespace AudiolyMusicPlayer2
             InitializeComponent();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             timer.Tick += new EventHandler(Timer_Tick);
+            clockTimer.Interval = TimeSpan.FromSeconds(1);
+            clockTimer.Tick += new EventHandler(ClockTimer_Tick);
+            clockTimer.Start();
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
@@ -43,10 +47,31 @@ namespace AudiolyMusicPlayer2
             }
         }
 
+        private void ClockTimer_Tick(object? sender, EventArgs e)
+        {
+            if (mediaPlayer.Source != null)
+            {
+                TimeSpan position = mediaPlayer.Position;
+                lblPositionTimer.Text = position.ToString(@"mm\:ss");
+
+                if (mediaPlayer.NaturalDuration.HasTimeSpan)
+                {
+                    TimeSpan duration = mediaPlayer.NaturalDuration.TimeSpan;
+                    TimeSpan remainingTime = duration - position;
+                    lblDurationTimer.Text = remainingTime.ToString(@"mm\:ss");
+                }
+                else
+                {
+                    lblDurationTimer.Text = "00:00";
+                }
+            }
+        }
+
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
+
 
         // File processing & Playlist building
 
@@ -97,15 +122,8 @@ namespace AudiolyMusicPlayer2
         {
             SeekbarSlider.Maximum = mediaPlayer.NaturalDuration.TimeSpan.TotalMilliseconds;
             SeekbarSlider.Value = 1;
-
-            //int musicDuration = Convert.ToInt32(mediaPlayer.NaturalDuration);
-            //int musicPosition = Convert.ToInt32(mediaPlayer.Position);
-
-            //int musicLength = musicDuration - musicPosition;
-
-            //lblCurrenttime.Text = mediaPlayer.Position.ToString();
-            //lblMusiclength.Text = musicPosition.ToString();
         }
+
 
         // Continues advancing through the playlist after track has ended:
         private void ContinuePlaying()
@@ -173,6 +191,8 @@ namespace AudiolyMusicPlayer2
             timer.Start();
             ContinuePlaying();
         }
+
+
 
         // Playlist Control Buttons
 
@@ -273,6 +293,8 @@ namespace AudiolyMusicPlayer2
             playList.SelectedIndex = newIndex;
         }
 
+
+
         // Window Control Buttons
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -284,6 +306,7 @@ namespace AudiolyMusicPlayer2
         {
             WindowState = WindowState.Minimized;
         }
+
 
 
         // Transport & Audio Control Buttons
@@ -358,6 +381,9 @@ namespace AudiolyMusicPlayer2
             repeatSelected = false;
             ContinuePlaying();
         }
+
+
+
 
         // Sliders      
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

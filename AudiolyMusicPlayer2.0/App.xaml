@@ -51,13 +51,6 @@
                         <GradientStop Color="LightGray" Offset="1"/>
                     </LinearGradientBrush>
                 </Style.Resources>
-                <Setter Property="ItemContainerStyle">
-                    <Setter.Value>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="BorderThickness" Value="0"></Setter>
-                        </Style>
-                    </Setter.Value>
-                </Setter>
             </Style>
             
         </ResourceDictionary>
