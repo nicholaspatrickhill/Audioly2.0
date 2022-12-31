@@ -174,6 +174,8 @@ namespace AudiolyMusicPlayer2
             ContinuePlaying();
         }
 
+        // Playlist Control Buttons
+
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
             if (isPlaying == false)
@@ -187,42 +189,69 @@ namespace AudiolyMusicPlayer2
                     lblSongname.Visibility = Visibility.Hidden;
                 }
             }
-            if (isPlaying == true)
+            else if (isPlaying == true)
             {
-                lblIsPlaying.Visibility = Visibility.Visible;
-                lblIsPlaying.Text = "Cannot remove tracks during playback. Please press stop!";
-
-                DispatcherTimer labelTimer = new DispatcherTimer();
-                labelTimer.Interval = new TimeSpan(0, 0, 0, 0, 3000);
-                labelTimer.Tick += new EventHandler(OnTimerEvent);  
-                labelTimer.Start();
+                ShowRemoveTracksLabel();
             }
 
             ContinuePlaying();
         }
 
-        private void OnTimerEvent(object? sender, EventArgs e)
+        private void ShowRemoveTracksLabel()
+        {
+            lblIsPlaying.Visibility = Visibility.Visible;
+            lblIsPlaying.Text = "Cannot move or remove tracks during playback. Please press stop to alter playlist!";
+
+            DispatcherTimer labelTimer = new DispatcherTimer();
+            labelTimer.Interval = new TimeSpan(0, 0, 0, 0, 3000);
+            labelTimer.Tick += new EventHandler(HideRemoveTracksLabel);
+            labelTimer.Start();
+        }
+
+        private void HideRemoveTracksLabel(object? sender, EventArgs e)
         {
             lblIsPlaying.Visibility = Visibility.Hidden;
         }
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
-            mediaPlayer.Stop();
-            playList.Items.Clear();
-            shuffledPlaylist.Clear();
-            mediaPlayer.Close();
-            lblSongname.Visibility = Visibility.Hidden;
+            if (isPlaying == false)
+            {
+                mediaPlayer.Stop();
+                playList.Items.Clear();
+                shuffledPlaylist.Clear();
+                mediaPlayer.Close();
+                lblSongname.Visibility = Visibility.Hidden;
+            }
+
+            else if (isPlaying == true)
+            {
+                ShowRemoveTracksLabel();
+            }
         }
 
         private void BtnDown_Click(object sender, RoutedEventArgs e)
         {
-            MoveItem(+1);
+            if (isPlaying == false)
+            {
+                MoveItem(+1);
+            }
+            else if (isPlaying == true)
+            {
+                ShowRemoveTracksLabel();
+            }
         }
 
         private void BtnUp_Click(object sender, RoutedEventArgs e)
         {
-            MoveItem(-1);
+            if (isPlaying == false)
+            {
+                MoveItem(-1);
+            }
+            else if (isPlaying == true)
+            {
+                ShowRemoveTracksLabel();
+            }
         }
 
         public void MoveItem(int direction)
