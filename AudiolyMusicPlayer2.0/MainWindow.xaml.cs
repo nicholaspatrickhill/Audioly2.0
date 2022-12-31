@@ -12,7 +12,6 @@ using System.Windows.Threading;
 // TODO
 // timers not bound to track lengths yet
 // shuffle is working but it still shuffles one more time after the button is turned off... - SET THIS TO ALWAYS RESET TO TRACK 1 FOR NOW
-// drag items around in listbox??
 // items can be moved around more than once but are highlighted in blue first... can this be grey? can it remain highlighted while selected?
 
 namespace AudiolyMusicPlayer2

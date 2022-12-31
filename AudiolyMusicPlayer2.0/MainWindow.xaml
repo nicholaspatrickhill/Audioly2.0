@@ -127,7 +127,7 @@
                     <materialDesign:PackIcon Kind="VolumeHigh" Width="20" Height="20" Foreground="Gray" Margin="150 25"/>
                     <Slider Value="0.35" Maximum="1" Margin="175 25" Foreground="Gray" x:Name="VolumeSlider" ValueChanged="VolumeSlider_ValueChanged" />
                 </Grid>
-                <TextBlock Margin="25" FontSize="14" Text="Song name" Foreground="White" TextAlignment="Center" FontFamily="Arial" FontWeight="SemiBold" Visibility="Hidden" x:Name="lblIsPlaying"/>
+                <TextBlock Margin="15" FontSize="14" Text="Song name" Foreground="White" TextAlignment="Center" FontFamily="Arial" Visibility="Hidden" x:Name="lblIsPlaying"/>
 
             </StackPanel>
         </materialDesign:Card>
