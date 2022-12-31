@@ -21,7 +21,7 @@ namespace AudiolyMusicPlayer2
     /// </summary>
     public partial class MainWindow : Window
     {
-        public readonly MediaPlayer mediaPlayer = new MediaPlayer();
+        private readonly MediaPlayer mediaPlayer = new MediaPlayer();
         DispatcherTimer timer = new DispatcherTimer();
         bool repeatSelected;
         bool shuffleSelected = false;
@@ -141,9 +141,9 @@ namespace AudiolyMusicPlayer2
             mediaPlayer.Play();
         }
 
-        List<string> shuffledPlaylist = new List<string>();
+        private readonly List<string> shuffledPlaylist = new List<string>();
 
-        public void PlayShuffledPlaylist()
+        private void PlayShuffledPlaylist()
         {
             isPlaying = true;
             shuffleSelected = true;
@@ -191,24 +191,24 @@ namespace AudiolyMusicPlayer2
             }
             else if (isPlaying == true)
             {
-                ShowRemoveTracksLabel();
+                ShowMoveOrRemoveTracksLabel();
             }
 
             ContinuePlaying();
         }
 
-        private void ShowRemoveTracksLabel()
+        private void ShowMoveOrRemoveTracksLabel()
         {
             lblIsPlaying.Visibility = Visibility.Visible;
-            lblIsPlaying.Text = "Cannot move or remove tracks during playback. Please press stop to alter playlist!";
+            lblIsPlaying.Text = "Cannot move or remove tracks during playback. Please press stop to alter the playlist!";
 
             DispatcherTimer labelTimer = new DispatcherTimer();
             labelTimer.Interval = new TimeSpan(0, 0, 0, 0, 3000);
-            labelTimer.Tick += new EventHandler(HideRemoveTracksLabel);
+            labelTimer.Tick += new EventHandler(HideMoveOrRemoveTracksLabel);
             labelTimer.Start();
         }
 
-        private void HideRemoveTracksLabel(object? sender, EventArgs e)
+        private void HideMoveOrRemoveTracksLabel(object? sender, EventArgs e)
         {
             lblIsPlaying.Visibility = Visibility.Hidden;
         }
@@ -226,7 +226,7 @@ namespace AudiolyMusicPlayer2
 
             else if (isPlaying == true)
             {
-                ShowRemoveTracksLabel();
+                ShowMoveOrRemoveTracksLabel();
             }
         }
 
@@ -238,7 +238,7 @@ namespace AudiolyMusicPlayer2
             }
             else if (isPlaying == true)
             {
-                ShowRemoveTracksLabel();
+                ShowMoveOrRemoveTracksLabel();
             }
         }
 
@@ -250,7 +250,7 @@ namespace AudiolyMusicPlayer2
             }
             else if (isPlaying == true)
             {
-                ShowRemoveTracksLabel();
+                ShowMoveOrRemoveTracksLabel();
             }
         }
 
