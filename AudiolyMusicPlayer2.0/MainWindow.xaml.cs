@@ -9,10 +9,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-// TODO
-// timers not bound to track lengths yet
-// shuffle is working but it still shuffles one more time after the button is turned off... - SET THIS TO ALWAYS RESET TO TRACK 1 FOR NOW
-// items can be moved around more than once but are highlighted in blue first... can this be grey? can it remain highlighted while selected?
 
 namespace AudiolyMusicPlayer2
 {
@@ -223,7 +219,7 @@ namespace AudiolyMusicPlayer2
             lblIsPlaying.Text = "Cannot move or remove tracks during playback. Please press stop to alter the playlist!";
 
             DispatcherTimer labelTimer = new DispatcherTimer();
-            labelTimer.Interval = new TimeSpan(0, 0, 0, 0, 3000);
+            labelTimer.Interval = new TimeSpan(0, 0, 0, 0, 5000);
             labelTimer.Tick += new EventHandler(HideMoveOrRemoveTracksLabel);
             labelTimer.Start();
         }
@@ -411,6 +407,5 @@ namespace AudiolyMusicPlayer2
             seekbarSliderDragging = false;
             mediaPlayer.Play();
         }
-        
     }
 }
